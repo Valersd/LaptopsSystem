@@ -7,12 +7,12 @@ namespace LaptopsSystem.Models
     public class Laptop
     {
         private readonly ICollection<Vote> _votes;
-        private readonly ICollection<Commment> _comments;
+        private readonly ICollection<Comment> _comments;
 
         public Laptop()
         {
             _votes = new HashSet<Vote>();
-            _comments = new HashSet<Commment>();
+            _comments = new HashSet<Comment>();
         }
 
         [Key]
@@ -35,6 +35,10 @@ namespace LaptopsSystem.Models
         [StringLength(200,MinimumLength=5)]
         public string ImageUrl { get; set; }
 
+        [Required]
+        [Range(1.0,10000.0)]
+        public decimal Price { get; set; }
+
         [Range(0.3,10.0)]
         public double? Weight { get; set; }
 
@@ -54,7 +58,7 @@ namespace LaptopsSystem.Models
 
         public ICollection<Vote> Votes { get; set; }
 
-        public ICollection<Commment> Comments { get; set; }
+        public ICollection<Comment> Comments { get; set; }
 
 
     }

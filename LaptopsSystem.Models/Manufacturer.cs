@@ -18,7 +18,7 @@ namespace LaptopsSystem.Models
         public int Id { get; set; }
 
         [Required]
-        [StringLength(40,MinimumLength=3)]
+        [StringLength(40,MinimumLength=2)]
         [Index(IsUnique=true)]
         public string Name { get; set; }
 

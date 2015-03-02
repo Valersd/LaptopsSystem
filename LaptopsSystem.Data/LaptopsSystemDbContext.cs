@@ -20,7 +20,7 @@ namespace LaptopsSystem.Data
 
         public IDbSet<MonitorSize> MonitorSizes { get; set; }
 
-        public IDbSet<Commment> Comments { get; set; }
+        public IDbSet<Comment> Comments { get; set; }
 
         public IDbSet<Vote> Votes { get; set; }
 

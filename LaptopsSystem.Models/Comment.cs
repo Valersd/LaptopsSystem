@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace LaptopsSystem.Models
 {
-    public class Commment
+    public class Comment
     {
         [Key]
         public int Id { get; set; }
