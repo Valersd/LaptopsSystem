@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace LaptopsSystem.Web.Models
+namespace LaptopsSystem.Web.ViewModels
 {
     public class ExternalLoginConfirmationViewModel
     {
@@ -49,9 +49,8 @@ namespace LaptopsSystem.Web.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
-        public string Email { get; set; }
+        [Display(Name = "User Name")]
+        public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -64,6 +63,11 @@ namespace LaptopsSystem.Web.Models
 
     public class RegisterViewModel
     {
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 5)]
+        [Display(Name = "User Name")]
+        public string UserName { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
