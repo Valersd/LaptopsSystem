@@ -16,7 +16,14 @@ namespace LaptopsSystem.Web.App_Start
     {
         public static void RegisterMappings()
         {
+            #region Laptop
 
+            Mapper.CreateMap<Laptop, LaptopIndex>()
+                .ForMember(l => l.Manufacturer, opt => opt.MapFrom(s => s.Manufacturer.Name));
+
+
+
+            #endregion
         }
     }
 }

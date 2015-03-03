@@ -22,3 +22,12 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/*#region Custom Rules */
+
+.word-wrap {
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
+}
+
+/*#endregion */

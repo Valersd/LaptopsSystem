@@ -10,8 +10,11 @@ namespace LaptopsSystem.Web.App_Start
 
     using Ninject;
     using Ninject.Web.Common;
+
     using System.Data.Entity;
+
     using LaptopsSystem.Data;
+    using LaptopsSystem.Web.Infrastructure.Cache;
 
     public static class NinjectWebCommon 
     {
@@ -66,6 +69,8 @@ namespace LaptopsSystem.Web.App_Start
             kernel.Bind<DbContext>().To<LaptopsSystemDbContext>().InRequestScope();
             kernel.Bind(typeof(IRepository<>)).To(typeof(BaseRepository<>)).InRequestScope();
             kernel.Bind<ILaptopsSystemData>().To<LaptopsSystemData>().InRequestScope();
+
+            kernel.Bind<ICacheService>().To<CacheService>();
         }        
     }
 }
