@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LaptopsSystem.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -6,25 +7,18 @@ using System.Web.Mvc;
 
 namespace LaptopsSystem.Web.Controllers
 {
-    public class HomeController : Controller
+    [AllowAnonymous]
+    public class HomeController : BaseController
     {
+        public HomeController(ILaptopsSystemData data)
+            :base(data)
+        {
+        }
+
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
     }
 }

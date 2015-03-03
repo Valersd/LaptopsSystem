@@ -9,6 +9,7 @@ using System.Web.Routing;
 
 using LaptopsSystem.Data;
 using LaptopsSystem.Data.Migrations;
+using LaptopsSystem.Web.App_Start;
 
 namespace LaptopsSystem.Web
 {
@@ -17,6 +18,8 @@ namespace LaptopsSystem.Web
         protected void Application_Start()
         {
             Database.SetInitializer<LaptopsSystemDbContext>(new MigrateDatabaseToLatestVersion<LaptopsSystemDbContext, Configuration>());
+
+            AutoMapperConfig.RegisterMappings();
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
