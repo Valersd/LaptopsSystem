@@ -1,0 +1,141 @@
+﻿@model LaptopDetails
+
+@{
+    string buttonStyle = Model.HasVoted ? "btn-default disabled" : "btn-success";
+    string glyph = Model.HasVoted ? "glyphicon glyphicon-remove-sign" : "glyphicon glyphicon-thumbs-up";
+    var comments = Model.Comments.OrderByDescending(c => c.Id);
+}
+
+<div class="row">
+    <p><span class="h3">@Model.Manufacturer </span><span class="h4">@Model.Model</span></p>
+</div>
+<div class="row">
+    <div class="col-sm-4">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Monitor)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Monitor)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Ram)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Ram)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.HardDisk)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.HardDisk)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Price)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Price)
+            </dd>
+            @if (User.Identity.IsAuthenticated)
+            {
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.VotesCount)
+                </dt>
+
+                <dd>
+                    <span id="votes">@Model.VotesCount</span>
+                    @Html.HiddenFor(model => model.Id)
+                    <button type="submit" class="btn @buttonStyle btn-xs" id="voteButton">
+                        <span class="@glyph" aria-hidden="true"></span> Vote
+                    </button>
+                </dd>
+            }
+        </dl>
+        <p id="ajaxResult"></p>
+    </div>
+    <div class="col-sm-4">
+        <img src="@Model.ImageUrl" alt="@String.Format("{0} {1}", Model.Manufacturer, Model.Model)" class="img-responsive" />
+    </div>
+    <div class="col-sm-4">
+        <dl class="dl-horizontal">
+            @if (Model.Weight != null)
+            {
+                <dt>
+                    @Html.DisplayNameFor(model => model.Weight)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Weight)
+                </dd>
+            }
+            @if (Model.AdditionalParts != null)
+            {
+                <dt>
+                    @Html.DisplayNameFor(model => model.AdditionalParts)
+                </dt>
+
+                <dd class="word-wrap">
+                    @Html.DisplayFor(model => model.AdditionalParts)
+                </dd>
+            }
+        </dl>
+    </div>
+</div>
+<br />
+@if (Model.Description != null)
+{
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd class="word-wrap">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+    </dl>
+}
+
+<ul id="comments">
+    @foreach (var comment in comments)
+    {
+        @*<li>
+            <p>
+                <em class="text-muted small">Comment by </em><strong class="underline">@comment.Author</strong>
+                <br />
+                @comment.Content
+            </p>
+        </li>*@
+        @Html.DisplayFor(c=>comment)
+    }
+</ul>
+<br />
+
+@if (User.Identity.IsAuthenticated)
+{
+    using (Ajax.BeginForm("Comment", "Ajax", null, new AjaxOptions
+    {
+        HttpMethod = "POST",
+        InsertionMode = InsertionMode.InsertBefore,
+        UpdateTargetId = "comments",
+        OnSuccess = "$('#Content').val('');"
+    }, new { @class="form-horizontal"}))
+    {
+        
+        @Html.AntiForgeryToken()
+
+        @Html.Partial("_CommentInput", new LaptopsSystem.Web.Models.CommentInput() { LaptopId = Model.Id })
+    
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" name="commentSubmit" value="Send" class="btn btn-success" />
+            </div>
+        </div>
+    }
+}
+
+
+

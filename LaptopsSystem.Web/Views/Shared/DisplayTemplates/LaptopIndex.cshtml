@@ -3,11 +3,10 @@
 <p>
     <span class="h3">@Html.DisplayFor(m => m.Manufacturer) </span> <span class="h4">@Html.DisplayFor(m => m.Model)</span>
 </p>
-<img src="@Model.ImageUrl" alt="@Model.Manufacturer + ' ' + @Model.Model" class="img-responsive" />
+<img src="@Model.ImageUrl" alt="@String.Format("{0} {1}",Model.Manufacturer, Model.Model)" class="img-responsive" />
 <br />
 <p>
     <span class="text-info">Price:   </span><strong class="h3 text-success">@Html.DisplayFor(m => m.Price)</strong>
     <br />
     @Html.ActionLink("View more...", "Details", new { id = Model.Id })
 </p>
-

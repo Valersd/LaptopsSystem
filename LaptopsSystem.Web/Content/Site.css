@@ -1,6 +1,8 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -28,6 +30,24 @@ textarea {
 .word-wrap {
     -ms-word-wrap: break-word;
     word-wrap: break-word;
+}
+
+.underline{
+    text-decoration:underline;
+}
+
+ul#comments{
+    list-style-type:none;
+}
+
+ul#comments li{
+    border:1px solid gray;
+    margin:7px;
+    padding:7px;
+}
+
+textarea{
+    max-width:400px;
 }
 
 /*#endregion */

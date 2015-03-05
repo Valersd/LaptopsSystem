@@ -9,6 +9,7 @@ using AutoMapper.QueryableExtensions;
 using LaptopsSystem.Models;
 //using LaptopsSystem.Web.Models;
 using LaptopsSystem.Web.ViewModels;
+using LaptopsSystem.Web.Models;
 
 namespace LaptopsSystem.Web.App_Start
 {
@@ -21,7 +22,21 @@ namespace LaptopsSystem.Web.App_Start
             Mapper.CreateMap<Laptop, LaptopIndex>()
                 .ForMember(l => l.Manufacturer, opt => opt.MapFrom(s => s.Manufacturer.Name));
 
+            Mapper.CreateMap<Laptop, LaptopDetails>()
+                .ForMember(l => l.Manufacturer, opt => opt.MapFrom(s => s.Manufacturer.Name))
+                .ForMember(l => l.Monitor, opt => opt.MapFrom(s => s.Monitor.Size))
+                .ForMember(l => l.VotesCount, opt => opt.MapFrom(s => s.Votes.Count))
+                .ForMember(l => l.Comments, opt => opt.MapFrom(s => s.Comments))
+                .ForMember(l => l.HasVoted, opt => opt.Ignore());
 
+            #endregion
+
+            #region Comment
+
+            Mapper.CreateMap<Comment, CommentInLaptop>()
+                .ForMember(c => c.Author, opt => opt.MapFrom(s => s.Author.UserName));
+
+            Mapper.CreateMap<CommentInput, Comment>();
 
             #endregion
         }

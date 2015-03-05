@@ -1,0 +1,19 @@
+﻿@model LaptopDetails
+@{
+    ViewBag.Title = Model.Manufacturer + " " + Model.Model;
+}
+
+<h2>Details</h2>
+<hr />
+
+@Html.DisplayForModel()
+
+<div>
+    <a href="javascript:history.go(-1)">Go Back</a>
+</div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/ajax")
+    @Scripts.Render("~/bundles/custom")
+}

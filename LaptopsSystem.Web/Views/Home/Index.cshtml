@@ -15,7 +15,7 @@
         @for (int j = i; j < i + 3; j++)
         {
             <div class="col-sm-4">
-                @Html.Partial("_LaptopIndex", Model[j])
+                @Html.DisplayFor(m => Model[j])
             </div>
         }
     </div>
@@ -28,7 +28,7 @@
         @for (int i = last; i < Model.Count; i++)
         {
             <div class="col-sm-4">
-                @Html.Partial("_LaptopIndex", Model[i])
+                @Html.DisplayFor(m => Model[i])
             </div>
         }
     </div>
