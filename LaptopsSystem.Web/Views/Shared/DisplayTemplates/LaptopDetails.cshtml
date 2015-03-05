@@ -102,13 +102,6 @@
 <ul id="comments">
     @foreach (var comment in comments)
     {
-        @*<li>
-            <p>
-                <em class="text-muted small">Comment by </em><strong class="underline">@comment.Author</strong>
-                <br />
-                @comment.Content
-            </p>
-        </li>*@
         @Html.DisplayFor(c=>comment)
     }
 </ul>

@@ -50,4 +50,12 @@ textarea{
     max-width:400px;
 }
 
+.vertical-center td,th{
+    vertical-align:middle!important;
+    text-align:center;
+}
+
+.vertical-center img{
+    height:100px;
+}
 /*#endregion */

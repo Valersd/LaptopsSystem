@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 using System.Data.Entity;
 
@@ -36,6 +37,24 @@ namespace LaptopsSystem.Web.Infrastructure.Cache
                             .To<LaptopIndex>()
                             .ToList()
                             , 60*60);
+            }
+        }
+
+        public IEnumerable<SelectListItem> Manufacturers
+        {
+            get 
+            {
+                return this.Get("Manufacturers",
+                    () => _data.Manufacturers
+                    .All()
+                    .OrderBy(m => m.Name)
+                    .Select(m => new SelectListItem
+                    {
+                        Text = m.Name,
+                        Value = m.Id.ToString()
+                    })
+                    .ToList().Select(s => new SelectListItem { Text = s.Text, Value = s.Value })
+                    , 60 * 60);
             }
         }
     }

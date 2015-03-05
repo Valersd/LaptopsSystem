@@ -1,0 +1,88 @@
+﻿@using PagedList
+@using PagedList.Mvc
+
+@model IPagedList<LaptopsSystem.Web.ViewModels.LaptopIndex>
+
+@{
+    ViewBag.Title = "Laptops";
+}
+
+<h2>@ViewBag.Title</h2>
+<hr />
+<form class="form-horizontal">
+    <div class="form-group">
+        <label for="model" class="col-md-2 control-label">By model</label>
+        <div class="col-md-10">
+            @Html.TextBox("model", ViewBag.LaptopModel as string, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="manufacturer" class="col-md-2 control-label">By manufacturer</label>
+        <div class="col-md-10">
+            @Html.DropDownList("manufacturer", ViewBag.Manufacturers as IEnumerable<SelectListItem>, "-- ALL --", new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="from" class="col-md-2 control-label">From price</label>
+        <div class="col-md-2">
+            <input type="number" max="9999" min="0" name="from" value="@(Convert.ToDecimal(ViewBag.From))" class="form-control" />
+        </div>
+        <label for="to" class="col-md-1 control-label">To price</label>
+        <div class="col-md-2">
+            <input type="number" max="10000" min="1" name="to" value="@(Convert.ToDecimal(ViewBag.To))" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-2">
+            <button type="submit" class="btn btn-success">Search</button>
+        </div>
+    </div>
+</form>
+@if (!Model.Any())
+{
+    <h4 class="text-warning"><em><strong>No results !</strong></em></h4>
+}
+else
+{
+    <table class="table table-striped vertical-center">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Manufacturer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Model)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].ImageUrl)
+            </th>
+            <th>Action</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <span class="h4">@Html.DisplayFor(modelItem => item.Manufacturer)</span>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Model)
+                </td>
+                <td>
+                    <span class="text-success h4">@Html.DisplayFor(modelItem => item.Price)</span>
+                </td>
+                <td>
+                    <img src="@item.ImageUrl" alt="@String.Format("{0} {1}",item.Manufacturer, item.Model)" />
+                </td>
+                <td>
+                    @Html.ActionLink("View more...", "Details", "Home", new { id = item.Id }, new { @class = "btn btn-sm btn-info" })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+    @Html.PagedListPager(Model, page => Url.Action("Index", "Laptops", new { page = page, model = Request["model"], manufacturer = Request["manufacturer"], from = Request["from"], to = Request["to"] }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+}
