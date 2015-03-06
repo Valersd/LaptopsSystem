@@ -58,7 +58,7 @@
         <p id="ajaxResult"></p>
     </div>
     <div class="col-sm-4">
-        <img src="@Model.ImageUrl" alt="@String.Format("{0} {1}", Model.Manufacturer, Model.Model)" class="img-responsive" />
+        <img src="@Model.ImageUrl" alt="@String.Format("{0} {1}", Model.Manufacturer, Model.Model)" class="img-responsive img-laptop" />
     </div>
     <div class="col-sm-4">
         <dl class="dl-horizontal">
@@ -128,6 +128,8 @@
             </div>
         </div>
     }
+    
+    @Html.Partial("_ImageModal")
 }
 
 

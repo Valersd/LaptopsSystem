@@ -34,24 +34,21 @@ namespace LaptopsSystem.Web.Controllers
             get { return _cacheService; }
         }
 
-        public ActionResult Index(int? page, string model = "", int manufacturer = 0, decimal from = 0m, decimal to = 10000m)
+        public ActionResult Index(int? page, int manufacturer = 0, decimal from = 1000m, decimal to = 5000m)
         {
             var laptops = Data.Laptops.All().Include(l=>l.Manufacturer);
+
             if (manufacturer != 0)
             {
                 laptops = laptops.Where(l => l.ManufacturerId == manufacturer);
             }
-            if (!string.IsNullOrEmpty(model))
-            {
-                laptops = laptops.Where(l => l.Model.Contains(model));
-            }
+            
             var result = laptops.Where(l => l.Price >= from && l.Price <= to)
                 .OrderBy(l => l.Price)
                 .Project<Laptop>().To<LaptopIndex>()
                 .ToPagedList(page ?? 1, 5);
 
             ViewBag.Manufacturers = CacheService.Manufacturers;
-            ViewBag.LaptopModel = model;
             ViewBag.From = from;
             ViewBag.To = to;
             

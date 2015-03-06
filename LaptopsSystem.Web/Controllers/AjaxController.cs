@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 using LaptopsSystem.Data;
 using LaptopsSystem.Models;
@@ -59,10 +60,30 @@ namespace LaptopsSystem.Web.Controllers
                 Data.SaveChanges();
 
                 var result = Mapper.Map<CommentInLaptop>(newComment);
+                result.Author = CurrentUser.UserName;
 
                 return PartialView("_CommentInLaptop", result);
             }
             return RedirectToAction("Error", "Home", new { area = "" });
+        }
+
+        public ActionResult Search(string term)
+        {
+            var laptops = Data.Laptops
+                .All()
+                .Include(l => l.Manufacturer)
+                .Where(l => l.Model.Contains(term) || l.Manufacturer.Name.Contains(term))
+                .OrderBy(l => l.Manufacturer.Name)
+                .ThenBy(l => l.Model)
+                .ToList()
+                .Select(l => new
+                {
+                    value = l.Id,
+                    label = l.Manufacturer.Name + " " + l.Model
+                })
+                .ToList();
+
+            return Json(laptops, JsonRequestBehavior.AllowGet);
         }
     }
 }

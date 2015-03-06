@@ -44,17 +44,9 @@ namespace LaptopsSystem.Web.Infrastructure.Cache
         {
             get 
             {
-                return this.Get("Manufacturers",
-                    () => _data.Manufacturers
-                    .All()
-                    .OrderBy(m => m.Name)
-                    .Select(m => new SelectListItem
-                    {
-                        Text = m.Name,
-                        Value = m.Id.ToString()
-                    })
-                    .ToList().Select(s => new SelectListItem { Text = s.Text, Value = s.Value })
-                    , 60 * 60);
+                var items = this.Get("Manufacturers",
+                    () => _data.Manufacturers.All().OrderBy(m => m.Name).ToList(), 60 * 60);
+                return items.Select(m => new SelectListItem { Text = m.Name, Value = m.Id.ToString() });
             }
         }
     }

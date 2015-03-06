@@ -91,6 +91,14 @@ namespace LaptopsSystem.Data.Migrations
             string[] names = new string[] { "DELL", "LENOVO", "HP", "ACER", "TOSHIBA" };
             int[] hardDiskSizes = new int[] { 250, 320, 500, 750, 1000, 2000, 5000 };
             int[] ramSizes = new int[] { 2, 4, 6, 8, 12, 16 };
+            string[] imgUrls = new string[] 
+            {
+                "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSZNvVQyOyJhkHXVnxV44Lmarv_WcgNG68c1hF4P1ZgNnZs7tqD",
+                "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcR7FbDHAzeEGCgDVZgHt9rhiYVmb7A6nmQ8vWUR07rTSKTf-jz9",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQh8OnxVyggvIAoEGYOJY9SuSNxLflTjgnsnYfZ1LVQ6AOBZOMjlw",
+                "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQO4SSYXVX5gEqubUkBCmuNh47F5OCoDWlgtrAtkfyzeTjPubbL",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZ6s-5XNAooG3XwJVNTufJXzV_Fx7SEs-4HB9M3PHu06rDqGmc8Q"
+            };
             var users = context.Users.Take(20).ToList();
 
             for (int i = 0; i < names.Length; i++)
@@ -113,7 +121,7 @@ namespace LaptopsSystem.Data.Migrations
                         HardDisk = hardDiskSizes[RandomGenerator.GetRandomNumber(0, hardDiskSizes.Length - 1)],
                         Ram = ramSizes[RandomGenerator.GetRandomNumber(0, ramSizes.Length - 1)],
                         Price = RandomGenerator.GetRandomNumber(800, 2400),
-                        ImageUrl = "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSZNvVQyOyJhkHXVnxV44Lmarv_WcgNG68c1hF4P1ZgNnZs7tqD",
+                        ImageUrl = imgUrls[RandomGenerator.GetRandomNumber(0, imgUrls.Length - 1)],
                         Weight = RandomGenerator.GetRandomNumber() % 2 == 0 ? (double)RandomGenerator.GetRandomNumber(2, 4) + 0.1 * (double)RandomGenerator.GetRandomNumber(0, 9) : default(double?),
                         AdditionalParts = RandomGenerator.GetRandomNumber() % 2 == 0 ? RandomGenerator.GetRandomText(10, 30) : null,
                         Description = RandomGenerator.GetRandomNumber() % 2 == 0 ? RandomGenerator.GetRandomText(100, 300) : null,
