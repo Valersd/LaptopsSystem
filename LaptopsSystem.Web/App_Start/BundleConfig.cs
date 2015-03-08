@@ -12,14 +12,15 @@ namespace LaptopsSystem.Web
                         "~/Scripts/jquery-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*"));
+                        "~/Scripts/jquery.validate.js",
+                        "~/Scripts/jquery.validate.unobtrusive.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/ajax").Include(
                         "~/Scripts/jquery.unobtrusive-ajax.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
-                        "~/Scripts/jquery-ui-1.11.3.custom/jquery-ui.js",
-                        "~/Scripts/Custom/autocomplete-and-slider.js"));
+            bundles.Add(new ScriptBundle("~/bundles/custom")
+                .Include("~/Scripts/jquery-ui-1.11.3.custom/jquery-ui.js")
+                .IncludeDirectory("~/Scripts/Custom", "*.js", false));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
@@ -30,21 +31,14 @@ namespace LaptopsSystem.Web
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/voting").Include(
-                        "~/Scripts/Custom/voting-ajax.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/image").Include(
-                        "~/Scripts/Custom/image-modal.js"));
-
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/bootstrap.slate.css",
-                      "~/Content/Site.css"));
+                        "~/Content/bootstrap.css",
+                        "~/Content/bootstrap.slate.css",
+                        "~/Content/jquery-ui.css",
+                        "~/Content/jquery-ui.structure.css",
+                        "~/Content/jquery-ui.theme.css",
+                        "~/Content/Site.css"));
 
-            bundles.Add(new StyleBundle("~/Scripts/jquery-ui-1.11.3.custom/jqueryui").Include(
-                "~/Scripts/jquery-ui-1.11.3.custom/jquery-ui.css",
-                "~/Scripts/jquery-ui-1.11.3.custom/jquery-ui.structure.css",
-                "~/Scripts/jquery-ui-1.11.3.custom/jquery-ui.theme.css"));
 
         }
     }

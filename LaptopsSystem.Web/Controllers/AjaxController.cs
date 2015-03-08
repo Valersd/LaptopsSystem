@@ -78,7 +78,7 @@ namespace LaptopsSystem.Web.Controllers
                 .ToList()
                 .Select(l => new
                 {
-                    value = l.Id,
+                    id = l.Id,
                     label = l.Manufacturer.Name + " " + l.Model
                 })
                 .ToList();

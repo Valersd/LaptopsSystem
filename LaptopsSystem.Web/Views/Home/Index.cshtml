@@ -4,6 +4,7 @@
     ViewBag.Title = "Laptops";
     int reminder = Model.Count % 3;
     int last = Model.Count - reminder;
+    TempData["Url"] = Request.Url.AbsoluteUri;
 }
 
 <h2>Laptops System</h2>

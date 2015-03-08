@@ -19,6 +19,8 @@ namespace LaptopsSystem.Web
         {
             Database.SetInitializer<LaptopsSystemDbContext>(new MigrateDatabaseToLatestVersion<LaptopsSystemDbContext, Configuration>());
 
+            BundleTable.EnableOptimizations = false;
+
             AutoMapperConfig.RegisterMappings();
 
             AreaRegistration.RegisterAllAreas();

@@ -4,7 +4,7 @@ $(function () {
         minlength: 1,
         source: "/ajax/search",
         select: function (event, ui) {
-            var model = ui.item.value;
+            var model = ui.item.id;
             window.location.replace('/Home/Details/' + model);
         }
     });

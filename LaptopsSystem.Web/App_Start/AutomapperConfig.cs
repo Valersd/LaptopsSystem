@@ -10,6 +10,7 @@ using LaptopsSystem.Models;
 //using LaptopsSystem.Web.Models;
 using LaptopsSystem.Web.ViewModels;
 using LaptopsSystem.Web.Models;
+using LaptopsSystem.Web.Areas.Admin.Models;
 
 namespace LaptopsSystem.Web.App_Start
 {
@@ -37,6 +38,17 @@ namespace LaptopsSystem.Web.App_Start
                 .ForMember(c => c.Author, opt => opt.MapFrom(s => s.Author.UserName));
 
             Mapper.CreateMap<CommentInput, Comment>();
+
+            #endregion
+
+            #region Manufacturer
+
+            Mapper.CreateMap<Manufacturer, ManufacturerIndex>()
+                .ForMember(m => m.LaptopModelsCount, opt => opt.MapFrom(s => s.Laptops.Count));
+
+            Mapper.CreateMap<Manufacturer, ManufacturerInput>().ReverseMap();
+
+            Mapper.CreateMap<Manufacturer, ManufacturerEdit>().ReverseMap();
 
             #endregion
         }

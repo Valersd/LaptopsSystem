@@ -201,6 +201,12 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ManufacturersController.cs" />
+    <Compile Include="Areas\Admin\Models\ManufacturerEdit.cs" />
+    <Compile Include="Areas\Admin\Models\ManufacturerIndex.cs" />
+    <Compile Include="Areas\Admin\Models\ManufacturerInput.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AjaxController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -235,38 +241,45 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Manufacturers\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Manufacturers\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Message.cshtml" />
+    <Content Include="Areas\Admin\Views\Manufacturers\Edit.cshtml" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\Custom\autocomplete-and-slider.js" />
+    <Content Include="Scripts\Custom\delete-manufacturer-modal.js" />
     <Content Include="Scripts\Custom\image-modal.js" />
+    <Content Include="Scripts\Custom\message.js" />
     <Content Include="Scripts\Custom\voting-ajax.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />
     <Content Include="Scripts\jquery-2.1.3.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.11.3.custom\external\jquery\jquery.js" />
-    <Content Include="Scripts\jquery-ui-1.11.3.custom\images\ui-bg_flat_30_cccccc_40x100.png" />
-    <Content Include="Scripts\jquery-ui-1.11.3.custom\images\ui-bg_flat_50_5c5c5c_40x100.png" />
-    <Content Include="Scripts\jquery-ui-1.11.3.custom\images\ui-bg_glass_20_555555_1x400.png" />
-    <Content Include="Scripts\jquery-ui-1.11.3.custom\images\ui-bg_glass_40_0078a3_1x400.png" />
-    <Content Include="Scripts\jquery-ui-1.11.3.custom\images\ui-bg_glass_40_ffc73d_1x400.png" />
-    <Content Include="Scripts\jquery-ui-1.11.3.custom\images\ui-bg_gloss-wave_25_333333_500x100.png" />
-    <Content Include="Scripts\jquery-ui-1.11.3.custom\images\ui-bg_highlight-soft_80_eeeeee_1x100.png" />
-    <Content Include="Scripts\jquery-ui-1.11.3.custom\images\ui-bg_inset-soft_25_000000_1x100.png" />
-    <Content Include="Scripts\jquery-ui-1.11.3.custom\images\ui-bg_inset-soft_30_f58400_1x100.png" />
-    <Content Include="Scripts\jquery-ui-1.11.3.custom\images\ui-icons_222222_256x240.png" />
-    <Content Include="Scripts\jquery-ui-1.11.3.custom\images\ui-icons_4b8e0b_256x240.png" />
-    <Content Include="Scripts\jquery-ui-1.11.3.custom\images\ui-icons_a83300_256x240.png" />
-    <Content Include="Scripts\jquery-ui-1.11.3.custom\images\ui-icons_cccccc_256x240.png" />
-    <Content Include="Scripts\jquery-ui-1.11.3.custom\images\ui-icons_ffffff_256x240.png" />
-    <Content Include="Scripts\jquery-ui-1.11.3.custom\index.html" />
-    <Content Include="Scripts\jquery-ui-1.11.3.custom\jquery-ui.css" />
+    <Content Include="Content\images\ui-bg_flat_30_cccccc_40x100.png" />
+    <Content Include="Content\images\ui-bg_flat_50_5c5c5c_40x100.png" />
+    <Content Include="Content\images\ui-bg_glass_20_555555_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_40_0078a3_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_40_ffc73d_1x400.png" />
+    <Content Include="Content\images\ui-bg_gloss-wave_25_333333_500x100.png" />
+    <Content Include="Content\images\ui-bg_highlight-soft_80_eeeeee_1x100.png" />
+    <Content Include="Content\images\ui-bg_inset-soft_25_000000_1x100.png" />
+    <Content Include="Content\images\ui-bg_inset-soft_30_f58400_1x100.png" />
+    <Content Include="Content\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\images\ui-icons_4b8e0b_256x240.png" />
+    <Content Include="Content\images\ui-icons_a83300_256x240.png" />
+    <Content Include="Content\images\ui-icons_cccccc_256x240.png" />
+    <Content Include="Content\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\jquery-ui.css" />
     <Content Include="Scripts\jquery-ui-1.11.3.custom\jquery-ui.js" />
-    <Content Include="Scripts\jquery-ui-1.11.3.custom\jquery-ui.min.css" />
+    <Content Include="Content\jquery-ui.min.css" />
     <Content Include="Scripts\jquery-ui-1.11.3.custom\jquery-ui.min.js" />
-    <Content Include="Scripts\jquery-ui-1.11.3.custom\jquery-ui.structure.css" />
-    <Content Include="Scripts\jquery-ui-1.11.3.custom\jquery-ui.structure.min.css" />
-    <Content Include="Scripts\jquery-ui-1.11.3.custom\jquery-ui.theme.css" />
-    <Content Include="Scripts\jquery-ui-1.11.3.custom\jquery-ui.theme.min.css" />
+    <Content Include="Content\jquery-ui.structure.css" />
+    <Content Include="Content\jquery-ui.structure.min.css" />
+    <Content Include="Content\jquery-ui.theme.css" />
+    <Content Include="Content\jquery-ui.theme.min.css" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -288,8 +301,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -324,6 +335,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Views\Admin\" />
     <Folder Include="Views\Ajax\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
@@ -335,6 +347,10 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LaptopsSystem.Common\LaptopsSystem.Common.csproj">
+      <Project>{a0cd7259-6d48-4263-8112-1883be8a2492}</Project>
+      <Name>LaptopsSystem.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LaptopsSystem.Data\LaptopsSystem.Data.csproj">
       <Project>{af1715af-19cf-4869-9da5-bdcbdbf1f3b0}</Project>
       <Name>LaptopsSystem.Data</Name>

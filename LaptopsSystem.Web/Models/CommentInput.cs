@@ -7,7 +7,7 @@ namespace LaptopsSystem.Web.Models
         public int LaptopId { get; set; }
 
         [Required(ErrorMessage = "Comment cannot be empty")]
-        [StringLength(200, MinimumLength = 3, ErrorMessage = "Comment must be between {2} and {1} characters")]
+        [StringLength(200, MinimumLength = 3, ErrorMessage = "Comment should be between {2} and {1} symbols")]
         [Display(Name = "Add Comment")]
         [DataType(DataType.MultilineText)]
         public string Content { get; set; }

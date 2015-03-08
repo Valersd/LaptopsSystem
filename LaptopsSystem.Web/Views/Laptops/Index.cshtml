@@ -5,38 +5,41 @@
 
 @{
     ViewBag.Title = "Laptops";
+    TempData["Url"] = Request.Url.AbsoluteUri;
 }
 
 <h2>@ViewBag.Title</h2>
 <hr />
 
 
-<form class="form-horizontal">
+<form class="form-horizontal well">
     <div class="form-group">
         <label for="model" class="col-md-2 control-label">By name</label>
         <div class="col-md-10">
-            <input type="text" name="model" id="model" value="" class="form-control" />
+            <input type="text" name="model" id="model" value="" class="form-control" autofocus="autofocus" placeholder="Manufacturer or model" />
+            <span class="text-primary h6"><em>Search in manufacturer or model name and redirect to details page</em></span>
         </div>
     </div>
 </form>
 
 <br />
 
-<form class="form-horizontal">
+<form class="form-horizontal well" role="form">
+
     <div class="form-group">
         <label for="manufacturer" class="col-md-2 control-label">By manufacturer</label>
         <div class="col-md-10">
             @Html.DropDownList("manufacturer", ViewBag.Manufacturers as IEnumerable<SelectListItem>, "-- ALL --", new { @class = "form-control" })
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group-sm">
         <label for="from" class="col-md-2 control-label">From price</label>
         <div class="col-md-2">
-            <input type="number" max="9999" disabled="disabled" min="0" id="from" name="from" value="@((decimal)ViewBag.From)" class="form-control" />
+            <input type="number" disabled id="from" name="from" value="@((decimal)ViewBag.From)" class="form-control input-sm" />
         </div>
         <label for="to" class="col-md-1 control-label">To price</label>
         <div class="col-md-2">
-            <input type="number" max="10000" disabled="disabled" min="1" id="to" name="to" value="@((decimal)ViewBag.To)" class="form-control" />
+            <input type="number" disabled id="to" name="to" value="@((decimal)ViewBag.To)" class="form-control input-sm" />
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-5">
@@ -44,9 +47,10 @@
             </div>
         </div>
     </div>
+    <br />
     <div class="form-group">
         <div class="col-md-offset-2 col-md-2">
-            <button type="submit" class="btn btn-success" onclick="$('#from').removeAttr('disabled'); $('#to').removeAttr('disabled');">Search</button>
+            <button type="submit" class="btn btn-success" id="search" onclick="$('#from').removeAttr('disabled'); $('#to').removeAttr('disabled');">Search</button>
         </div>
     </div>
 </form>
@@ -56,7 +60,7 @@
 }
 else
 {
-    <table class="table table-striped vertical-center">
+    <table class=" table table-striped vertical-center">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model[0].Manufacturer)
@@ -71,65 +75,37 @@ else
                 @Html.DisplayNameFor(model => model[0].ImageUrl)
             </th>
             <th>Action</th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    <span class="h4">@Html.DisplayFor(modelItem => item.Manufacturer)</span>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Model)
-                </td>
-                <td>
-                    <span class="text-success h4">@Html.DisplayFor(modelItem => item.Price)</span>
-                </td>
-                <td>
-                    <img src="@item.ImageUrl" alt="@String.Format("{0} {1}",item.Manufacturer, item.Model)" class="img-laptop" />
-                </td>
-                <td>
-                    @Html.ActionLink("View more...", "Details", "Home", new { id = item.Id }, new { @class = "btn btn-sm btn-info" })
-                </td>
             </tr>
+
+            @foreach (var item in Model)
+        {
+                <tr>
+                    <td>
+                        <span class="h4">@Html.DisplayFor(modelItem => item.Manufacturer)</span>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Model)
+                    </td>
+                    <td>
+                        <span class="text-success h4">@Html.DisplayFor(modelItem => item.Price)</span>
+                    </td>
+                    <td>
+                        <img src="@item.ImageUrl" alt="@String.Format("{0} {1}",item.Manufacturer, item.Model)" class="img-laptop" />
+                    </td>
+                    <td>
+                        @Html.ActionLink("View more...", "Details", "Home", new { id = item.Id }, new { @class = "btn btn-sm btn-info" })
+                    </td>
+                </tr>
         }
 
     </table>
 
-    @Html.PagedListPager(Model, page => Url.Action("Index", "Laptops", new { page = page, manufacturer = Request["manufacturer"], from = Request["from"], to = Request["to"] }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+    @Html.PagedListPager(Model, page => Url.Action("Index", "Laptops", new { page = page, manufacturer = Request["manufacturer"], from = Request["from"], to = Request["to"] }) + "#search", PagedListRenderOptions.ClassicPlusFirstAndLast)
 
     @Html.Partial("_ImageModal")
 }
 
 @section scripts{
-    @Scripts.Render("~/bundles/jqueryui")
-    @Scripts.Render("~/bundles/image")
-    @*<script type="text/javascript">
-        $(function () {
-            $('#model').val('').autocomplete({
-                minlength: 1,
-                source: "/ajax/search",
-                select: function (event, ui) {
-                    var model = ui.item.value;
-                    window.location.replace('/Home/Details/' + model);
-                }
-            });
-
-            $('#slider').slider({
-                animate: 'fast',
-                max: 10000,
-                min: 0,
-                step: 100,
-                range: true,
-                values: [1000, 5000],
-                slide: function (event, ui) {
-                    $('#from').val(ui.values[0]);
-                    $('#to').val(ui.values[1]);
-                }
-            });
-
-            $('#slider').slider('values', 0, $('#from').val());
-            $('#slider').slider('values', 1, $('#to').val());
-        });
-    </script>*@
+    @Scripts.Render("~/bundles/custom")
 }
+

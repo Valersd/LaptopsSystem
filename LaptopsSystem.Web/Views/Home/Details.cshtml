@@ -9,12 +9,20 @@
 @Html.DisplayForModel()
 
 <div>
-    <a href="javascript:history.go(-1)">Go Back</a>
+    @if (TempData["Url"] != null)
+    {
+        <a href="@TempData["Url"]">Go Back</a>
+        
+    }
+    else
+    {
+        <a href="javascript:history.go(-1)">Go Back</a>
+    }
+    
 </div>
 
 @section scripts{
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/ajax")
-    @Scripts.Render("~/bundles/voting")
-    @Scripts.Render("~/bundles/image")
+    @Scripts.Render("~/bundles/custom")
 }

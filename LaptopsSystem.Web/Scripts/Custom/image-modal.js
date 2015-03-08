@@ -1,7 +1,6 @@
 ﻿
 $(function () {
     $('.img-laptop').click(function () {
-        console.log($(this));
         var $that = $(this);
         var src = $($that).attr('src');
         var alt = $($that).attr('alt');
