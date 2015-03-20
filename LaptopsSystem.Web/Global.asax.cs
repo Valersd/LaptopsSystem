@@ -21,7 +21,11 @@ namespace LaptopsSystem.Web
 
             BundleTable.EnableOptimizations = false;
 
+            ViewEnginesConfig.RegisterViewEngines();
+
             AutoMapperConfig.RegisterMappings();
+
+            ModelBindersConfig.RegisterBindings();
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

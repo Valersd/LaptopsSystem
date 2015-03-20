@@ -1,5 +1,4 @@
-﻿using LaptopsSystem.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,8 +10,9 @@ using System.Data.Entity;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 
-using LaptopsSystem.Web.Areas.Admin.Models;
+using LaptopsSystem.Data;
 using LaptopsSystem.Models;
+using LaptopsSystem.Web.Areas.Admin.Models;
 
 
 namespace LaptopsSystem.Web.Areas.Admin.Controllers
@@ -57,6 +57,7 @@ namespace LaptopsSystem.Web.Areas.Admin.Controllers
                     var manufacturer = Mapper.Map<Manufacturer>(model);
                     Data.Manufacturers.Add(manufacturer);
                     Data.SaveChanges();
+                    HttpContext.Cache.Remove("Manufacturers");
                     TempData["Message"] = "Manufacturer successfully added";
                     return RedirectToAction("Index");
                 }
@@ -103,6 +104,7 @@ namespace LaptopsSystem.Web.Areas.Admin.Controllers
                     var edited = Mapper.Map<Manufacturer>(model);
                     Data.Manufacturers.Update(edited);
                     Data.SaveChanges();
+                    HttpContext.Cache.Remove("Manufacturers");
                     TempData["Message"] = "Manufacturer successfully updated";
 
                     return RedirectToAction("Index");
@@ -120,13 +122,20 @@ namespace LaptopsSystem.Web.Areas.Admin.Controllers
         // POST: Admin/Manufacturers/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
+            if (!id.HasValue)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
             try
             {
-                Data.Manufacturers.Delete(id);
+                Data.Manufacturers.Delete(id.Value);
                 Data.SaveChanges();
+                HttpContext.Cache.Remove("Manufacturers");
                 TempData["Message"] = "Manufacturer successfully deleted";
+                
                 return RedirectToAction("Index");
             }
             catch

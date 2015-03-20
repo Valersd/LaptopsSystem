@@ -1,0 +1,86 @@
+﻿@model IEnumerable<LaptopsSystem.Web.Areas.Admin.Models.LaptopAdminIndex>
+
+@if (TempData.ContainsKey("Message"))
+{
+    @Html.Partial("_Message")
+}
+
+@{
+    ViewBag.Title = "Laptops List";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "text-success h4" })
+</p>
+<table class="table table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Manufacturer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Model)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ImageUrl)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HardDisk)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ram)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Monitor)
+        </th>
+        <th>Action</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr class="text-center">
+            <td>
+                @Html.DisplayFor(modelItem => item.Manufacturer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Model)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImageUrl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HardDisk)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ram)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Monitor)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "text-info" }) |
+                <a href="#" role="button" data-id="@item.Id" data-name="@String.Format("{0} {1}",item.Manufacturer,item.Model)" class="delete text-danger">Delete</a>
+            </td>
+        </tr>
+    }
+
+</table>
+
+@Html.Partial("_DeleteModal", new ViewDataDictionary { { "url", "/Admin/Laptops/Delete" } })
+
+@section scripts{
+    @Scripts.Render("~/bundles/custom")
+    <script type="text/javascript">
+        $(function () {
+            modalOperations.init();
+            modalOperations.modalDelete('.delete', 'Are you sure to delete laptop ', ' ?');
+        });
+    </script>
+}

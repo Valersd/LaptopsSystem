@@ -49,5 +49,15 @@ namespace LaptopsSystem.Web.Infrastructure.Cache
                 return items.Select(m => new SelectListItem { Text = m.Name, Value = m.Id.ToString() });
             }
         }
+
+        public IEnumerable<SelectListItem> MonitorSizes
+        {
+            get
+            {
+                var items = this.Get("MonitorSizes",
+                    () => _data.MonitorSizes.All().OrderBy(m => m.Size).ToList(), 60 * 60);
+                return items.Select(m => new SelectListItem { Text =  m.Size.ToString(), Value = m.Id.ToString() });
+            }
+        }
     }
 }

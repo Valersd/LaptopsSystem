@@ -30,6 +30,25 @@ namespace LaptopsSystem.Web.App_Start
                 .ForMember(l => l.Comments, opt => opt.MapFrom(s => s.Comments))
                 .ForMember(l => l.HasVoted, opt => opt.Ignore());
 
+            Mapper.CreateMap<Laptop, LaptopAdminIndex>()
+                .ForMember(l => l.Manufacturer, opt => opt.MapFrom(s => s.Manufacturer.Name))
+                .ForMember(l => l.Monitor, opt => opt.MapFrom(s => s.Monitor.Size));
+
+            Mapper.CreateMap<LaptopInput, Laptop>()
+                .ForMember(l => l.MonitorId, opt => opt.MapFrom(s => s.MonitorSizeId))
+                .ForMember(l => l.Model, opt => opt.MapFrom(s => s.Model.ToUpper()));
+
+            Mapper.CreateMap<Laptop, LaptopEdit>()
+                .ForMember(l => l.Manufacturer, opt => opt.MapFrom(s => s.Manufacturer.Name))
+                .ForMember(l => l.MonitorSizeId, opt => opt.MapFrom(s => s.MonitorId));
+
+            Mapper.CreateMap<LaptopEdit, Laptop>()
+                .ForMember(l => l.Manufacturer, opt => opt.Ignore())
+                .ForMember(l => l.MonitorId, opt => opt.Ignore())
+                .ForMember(l => l.Model, opt => opt.Ignore())
+                .ForMember(l => l.Price, opt => opt.MapFrom(s => Math.Round(s.Price.Value, 2)))
+                .ForMember(l => l.Weight, opt => opt.MapFrom(s => s.Weight.HasValue ? Math.Round(s.Weight.Value, 3): default(double?)));
+
             #endregion
 
             #region Comment

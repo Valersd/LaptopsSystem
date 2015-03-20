@@ -18,6 +18,6 @@ namespace LaptopsSystem.Web.ViewModels
         public decimal Price { get; set; }
 
         [Display(Name="Image")]
-        public string ImageUrl { get; set; }
+        public virtual string ImageUrl { get; set; }
     }
 }

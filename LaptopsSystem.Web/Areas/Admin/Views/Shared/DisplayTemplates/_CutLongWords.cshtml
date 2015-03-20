@@ -1,0 +1,12 @@
+﻿@model string
+
+@{
+    int length = 20;
+    if (ViewData.ModelMetadata.AdditionalValues.ContainsKey("Length"))
+    {
+        length = int.Parse(ViewData.ModelMetadata.AdditionalValues["Length"].ToString());
+    }
+    string cutted = Model.Substring(0, length);
+
+}
+<span title="@Model">@cutted&hellip;</span>

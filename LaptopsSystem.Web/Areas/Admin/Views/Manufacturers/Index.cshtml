@@ -12,7 +12,7 @@
 <h2>@ViewBag.Title</h2>
 
 <p class="h4">
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", null, new { @class="text-success"})
 </p>
 <div class="row">
     <div class="col-md-6">
@@ -39,8 +39,8 @@
                         @Html.DisplayFor(modelItem => item.LaptopModelsCount)
                     </td>
                     <td>
-                        @Html.ActionLink("Edit", "Edit", "Manufacturers", new { area = "Admin", id = item.Id }, null) |
-                        <a href="#" role="button" data-id="@item.Id" data-name="@item.Name" class="delete">Delete</a>
+                        @Html.ActionLink("Edit", "Edit", "Manufacturers", new { area = "Admin", id = item.Id }, new { @class="text-info"}) |
+                        <a href="#" role="button" data-id="@item.Id" data-name="@item.Name" class="delete text-danger">Delete</a>
                     </td>
                 </tr>
             }
@@ -49,29 +49,15 @@
     </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="myModalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                @*<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>*@
-                <h4 class="modal-title" id="myModalLabel">Delete confirmation</h4>
-            </div>
-            <div class="modal-body">
-                <form action="/Admin/Manufacturers/Delete" method="post" id="deleteForm" role="form">
-                    @Html.AntiForgeryToken()
-                    @Html.Hidden("id")
-                    <p id="question" class="h4 text-warning"></p>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
-                <button type="button" id="btnDelete" class="btn btn-danger">Delete</button>
-            </div>
-        </div>
-    </div>
-</div>
+@Html.Partial("_DeleteModal", new ViewDataDictionary { { "url", "/Admin/Manufacturers/Delete" } })
 
 @section scripts{
-    @Scripts.Render("/bundles/custom")
+    @Scripts.Render("~/bundles/custom")
+    <script type="text/javascript">
+        $(function () {
+            modalOperations.init();
+            modalOperations.modalDelete('.delete', 'Are you sure to delete manufacturer ', ' with all its models ?');
+        });
+
+    </script>
 }

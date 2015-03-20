@@ -1,0 +1,156 @@
+﻿@model LaptopsSystem.Web.Areas.Admin.Models.LaptopEdit
+
+@{
+    ViewBag.Title = "Edit " + Model.Manufacturer + " " + Model.Model;
+    var monitorSizes = ViewBag.MonitorSizes as IEnumerable<SelectListItem>;
+}
+
+<h2>@ViewBag.Title</h2>
+<hr />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(m => m.Id)
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    @*@Html.LabelFor(model => model.ManufacturerId, "Manufacturer", htmlAttributes: new { @class = "control-label col-md-4" })*@
+                    <label for="Manufacturer" class="control-label col-md-4">Manufacturer&nbsp;&nbsp;<span class="glyphicon glyphicon-ban-circle text-danger"></span></label>
+                    <div class="col-md-8 inner-addon left-addon">
+                        <span class="glyphicon glyphicon-lock"></span>
+                        @Html.EditorFor(model => model.Manufacturer, new { htmlAttributes = new { @class = "form-control", @readonly = "" } })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @*@Html.LabelFor(model => model.Model, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                    <label for="Model" class="control-label col-md-2">Model&nbsp;&nbsp;<span class="glyphicon glyphicon-ban-circle text-danger"></span></label>
+                    <div class="col-md-10 inner-addon left-addon">
+                        <span class="glyphicon glyphicon-lock"></span>
+                        @Html.EditorFor(model => model.Model, new { htmlAttributes = new { @class = "form-control", @readonly = "" } })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                @*@Html.LabelFor(m => m.MonitorSizeId, "Monitor size", new { @class = "control-label col-md-2", style = "padding-right:5px" })*@
+                <label for="MonitorSizeId" class="control-label col-md-2" style="padding-right:5px">Monitor size&nbsp;&nbsp;<span class="glyphicon glyphicon-ban-circle text-danger"></span></label>
+                <div class="col-md-10" style="padding-left:25px">
+                    @foreach (var size in monitorSizes)
+                    {
+                        if (size.Selected)
+                        {
+                            @Html.RadioButtonFor(m => m.MonitorSizeId, size.Value, new { id = size.Text, @checked = "" })
+                            <label for="@size.Text" class="control-label h4"><em><strong>@String.Format("{0}\"", size.Text)</strong></em></label>@:&nbsp;&nbsp;&nbsp;
+                        }
+                        else
+                        {
+                            @Html.RadioButtonFor(m => m.MonitorSizeId, size.Value, new { id = size.Text, disabled = "" })
+                            <label for="@size.Text" class="control-label h4"><em><strong class="text-muted">@String.Format("{0}\"", size.Text)</strong></em></label>@:&nbsp;&nbsp;&nbsp;
+                        }
+
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.HardDisk, htmlAttributes: new { @class = "control-label col-md-6" })
+                    @*<label for="HardDisk" class="control-label col-md-6">Hard Disk&nbsp;&nbsp;<span class="glyphicon glyphicon-ok text-success"></span></label>*@
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.HardDisk, new { htmlAttributes = new { @class = "form-control", min = "0", step = "50", autofocus = "", onfocus = "this.value=this.value" } })
+                        <span class="text-primary h6"><em>Enter size in GB</em></span><br />
+                        @Html.ValidationMessageFor(model => model.HardDisk, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Ram, htmlAttributes: new { @class = "control-label col-md-6" })
+                    @*<label for="Ram" class="control-label col-md-6">RAM&nbsp;&nbsp;<span class="glyphicon glyphicon-ok text-success"></span></label>*@
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Ram, new { htmlAttributes = new { @class = "form-control", min = "0" } })
+                        <span class="text-primary h6"><em>Enter size in GB</em></span><br />
+                        @Html.ValidationMessageFor(model => model.Ram, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-6" })
+                    <div class="col-md-6 inner-addon left-addon">
+                        <span class="glyphicon glyphicon glyphicon-gbp"></span>
+                        @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                        <span class="text-primary h6"><em>Enter price in GBP with separator , or .</em></span><br />
+                        @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Weight, htmlAttributes: new { @class = "control-label col-md-6" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Weight, new { htmlAttributes = new { @class = "form-control" } })
+                        <span class="text-primary h6"><em>Enter weight in kg with separator , or .</em></span><br />
+                        @Html.ValidationMessageFor(model => model.Weight, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @Html.EditorFor(m => m.ImageUrl, new { rows = "3" })
+
+        @Html.EditorFor(m => m.AdditionalParts)
+
+        @Html.EditorFor(m => m.Description)
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-ok-circle"></span> Update</button>
+                <a href="/Admin/Laptops" class="btn btn-danger"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span> Cancel</a>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="/Admin/Laptops"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Go Back</a>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/globalize")
+    @Scripts.Render("~/bundles/custom")
+
+    <script type="text/javascript">
+        $(function () {
+            $('[data-val=true]').each(function () {
+                var that = $(this);
+                var label = that.parent().parent().children('label').first();
+                label.append('&nbsp&nbsp<span class="glyphicon glyphicon-ok text-success"></span>');
+                that.on('change keyup paste mouseup blur', function () {
+                    if ($(this).valid()) {
+                        $(this).parent().parent().children('label').children('span').removeClass().addClass('glyphicon glyphicon-ok text-success');
+                    }
+                    else {
+                        $(this).parent().parent().children('label').children('span').removeClass().addClass('glyphicon glyphicon-remove text-danger');
+                    }
+                })
+            })
+        })
+    </script>
+}
+
+
+
+

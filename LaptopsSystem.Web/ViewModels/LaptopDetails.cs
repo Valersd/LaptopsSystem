@@ -5,23 +5,12 @@ using System.Linq;
 using System.Web;
 
 using LaptopsSystem.Models;
+using LaptopsSystem.Web.Areas.Admin.Models;
 
 namespace LaptopsSystem.Web.ViewModels
 {
-    public class LaptopDetails : LaptopIndex
+    public class LaptopDetails : LaptopAdminIndex
     {
-        [Display(Name="Display size")]
-        [DisplayFormat(DataFormatString="{0}\"")]
-        public double Monitor { get; set; }
-
-        [Display(Name="Hard disk")]
-        [DisplayFormat(DataFormatString="{0} GB")]
-        public int HardDisk { get; set; }
-
-        [Display(Name="RAM")]
-        [DisplayFormat(DataFormatString = "{0} GB")]
-        public int Ram { get; set; }
-
         [DisplayFormat(DataFormatString="{0} kg")]
         public double? Weight { get; set; }
 
@@ -32,6 +21,10 @@ namespace LaptopsSystem.Web.ViewModels
 
         [Display(Name="Votes")]
         public int VotesCount { get; set; }
+
+        [Display(Name="Image")]
+        public override string ImageUrl { get; set; }
+        
 
         public bool HasVoted { get; set; }
 

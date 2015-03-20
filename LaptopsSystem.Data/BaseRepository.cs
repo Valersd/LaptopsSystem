@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Linq;
+
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
-using System.Linq;
 
 namespace LaptopsSystem.Data
 {
@@ -52,13 +53,13 @@ namespace LaptopsSystem.Data
             if (entry.State == EntityState.Detached)
             {
                 this.DbSet.Attach(entity);
-                entry.State = EntityState.Modified;
-                foreach (var prop in excludProp)
-                {
-                    entry.Property(prop).IsModified = false;
-                }
             }
-            //entry.State = EntityState.Modified;
+            entry.State = EntityState.Modified;
+            foreach (var prop in excludProp)
+            {
+                
+                entry.Property(prop).IsModified = false;
+            }
         }
 
         public virtual void Delete(T entity)
