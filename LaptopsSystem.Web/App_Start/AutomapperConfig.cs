@@ -58,6 +58,18 @@ namespace LaptopsSystem.Web.App_Start
 
             Mapper.CreateMap<CommentInput, Comment>();
 
+            Mapper.CreateMap<Comment, CommentIndex>()
+                .ForMember(c => c.Author, opt => opt.MapFrom(s => s.Author.UserName))
+                .ForMember(c => c.LaptopManufacturer, opt => opt.MapFrom(s => s.Laptop.Manufacturer.Name))
+                .ForMember(c => c.LaptopModel, opt => opt.MapFrom(s => s.Laptop.Model));
+
+            Mapper.CreateMap<Comment, CommentEdit>()
+                .ForMember(c => c.Author, opt => opt.MapFrom(s => s.Author.UserName))
+                .ForMember(c => c.LaptopManufacturer, opt => opt.MapFrom(s => s.Laptop.Manufacturer.Name))
+                .ForMember(c => c.LaptopModel, opt => opt.MapFrom(s => s.Laptop.Model));
+
+            Mapper.CreateMap<CommentEdit, Comment>();
+
             #endregion
 
             #region Manufacturer

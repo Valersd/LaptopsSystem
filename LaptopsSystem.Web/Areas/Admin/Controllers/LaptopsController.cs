@@ -140,9 +140,9 @@ namespace LaptopsSystem.Web.Areas.Admin.Controllers
                 PopulateMonitorSizesInEdit(edited);
                 return View(edited);
             }
-            catch (Exception ex)
+            catch
             {
-                ModelState.AddModelError("", "Some error occurred.Try again " + ex.Message);
+                ModelState.AddModelError("", "Some error occurred.Try again");
                 PopulateMonitorSizesInEdit(edited);
                 return View(edited);
             }

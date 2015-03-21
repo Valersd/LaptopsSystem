@@ -59,6 +59,10 @@ textarea {
     max-height: 100px;
 }
 
+.middle{
+    vertical-align:middle !important;
+}
+
 .img-laptop:hover {
     cursor: pointer;
 }

@@ -1,12 +1,12 @@
 ﻿@model IEnumerable<LaptopsSystem.Web.Areas.Admin.Models.LaptopAdminIndex>
 
+@{
+    ViewBag.Title = "Laptops List";
+}
+
 @if (TempData.ContainsKey("Message"))
 {
     @Html.Partial("_Message")
-}
-
-@{
-    ViewBag.Title = "Laptops List";
 }
 
 <h2>@ViewBag.Title</h2>

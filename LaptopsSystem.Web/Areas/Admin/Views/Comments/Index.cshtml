@@ -1,0 +1,66 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<LaptopsSystem.Web.Areas.Admin.Models.CommentIndex>
+
+@{
+    ViewBag.Title = "Comments";
+}
+
+@if (TempData.ContainsKey("Message"))
+{
+    @Html.Partial("_Message")
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table class="table table-striped">
+    <tr class="text-center">
+        <th>
+            Content
+        </th>
+        <th class="text-left">
+            Laptop
+        </th>
+        <th class="text-left">
+            Author
+        </th>
+        <th>
+            Action
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td style="width:65%">
+                @Html.DisplayFor(modelItem => item.Content)
+            </td>
+            <td class="middle">
+                @Html.ActionLink(item.LaptopManufacturer + " " + item.LaptopModel, "Details", "Home", new { area = "", id = item.LaptopId }, null)
+            </td>
+            <td class="middle">
+                @Html.DisplayFor(modelItem => item.Author)
+            </td>
+            <td class="text-center middle">
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "text-info" }) |
+                <a href="#" role="button" data-id="@item.Id" data-name="@item.Author" class="delete text-danger">Delete</a>
+            </td>
+        </tr>
+    }
+
+</table>
+
+@Html.PagedListPager(Model, page => Url.Action("Index", "Comments", new { page = page, area = "Admin" }),PagedListRenderOptions.ClassicPlusFirstAndLast)
+
+@Html.Partial("_DeleteModal", new ViewDataDictionary { { "url","/Admin/Comments/Delete" } })
+
+@section scripts{
+    @Scripts.Render("~/bundles/custom")
+    <script type="text/javascript">
+        $(function () {
+            modalOperations.init();
+            modalOperations.modalDelete('.delete', 'Are you sure to delete that comment from ', ' ?');
+        })
+    </script>
+}

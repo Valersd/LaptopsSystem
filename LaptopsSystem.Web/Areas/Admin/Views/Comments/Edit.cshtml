@@ -1,0 +1,44 @@
+﻿@model LaptopsSystem.Web.Areas.Admin.Models.CommentEdit
+
+@{
+    ViewBag.Title = "Edit comment";
+}
+
+<h3>Edit</h3>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>@Model.LaptopManufacturer @Model.LaptopModel</h4>
+        <h5>Comment by <span class="h4">@Model.Author</span></h5>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        @Html.EditorFor(model => model.Content)
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-ok-circle"></span> Update</button>
+                <a href="/Admin/Comments" class="btn btn-danger"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span> Cancel</a>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="/Admin/Comments"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Go Back</a>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/custom")
+    <script type="text/javascript">
+        $(function () {
+            $('#Content').focus();
+        })
+    </script>
+}

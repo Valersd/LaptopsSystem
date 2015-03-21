@@ -205,8 +205,11 @@
     <Compile Include="App_Start\ViewEnginesConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CommentsController.cs" />
     <Compile Include="Areas\Admin\Controllers\LaptopsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ManufacturersController.cs" />
+    <Compile Include="Areas\Admin\Models\CommentEdit.cs" />
+    <Compile Include="Areas\Admin\Models\CommentIndex.cs" />
     <Compile Include="Areas\Admin\Models\LaptopAdminIndex.cs" />
     <Compile Include="Areas\Admin\Models\LaptopEdit.cs" />
     <Compile Include="Areas\Admin\Models\LaptopInput.cs" />
@@ -258,6 +261,8 @@
     <Content Include="Areas\Admin\Views\Laptops\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Laptops\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Laptops\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Comments\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Comments\Edit.cshtml" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\Custom\autocomplete-and-slider.js" />
     <Content Include="Scripts\Custom\modal-operations.js" />

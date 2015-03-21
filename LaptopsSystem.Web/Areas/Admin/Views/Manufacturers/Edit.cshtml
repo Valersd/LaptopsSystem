@@ -26,15 +26,15 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-success" />
-                <a href="/Admin/Manufacturers/" class="btn btn-default">Cancel</a>
+                <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-ok-circle"></span> Update</button>
+                <a href="/Admin/Manufacturers" class="btn btn-danger"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span> Cancel</a>
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    <a href="/Admin/Manufacturers"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Go Back</a>
 </div>
 
 @section Scripts {
