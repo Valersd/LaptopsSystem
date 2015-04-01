@@ -5,7 +5,9 @@
 
 @{
     ViewBag.Title = "Comments";
-    TempData["Url"] = Request.Url.AbsoluteUri;
+    var uri = new Uri(Request.Url.AbsoluteUri);
+    var cleanUrl = uri.GetComponents(UriComponents.AbsoluteUri & ~UriComponents.Port, UriFormat.UriEscaped);
+    TempData["Url"] = cleanUrl;
 }
 
 @if (TempData.ContainsKey("Message"))

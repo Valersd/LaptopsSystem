@@ -4,7 +4,10 @@
     ViewBag.Title = "Laptops";
     int reminder = Model.Count % 3;
     int last = Model.Count - reminder;
-    TempData["Url"] = Request.Url.AbsoluteUri;
+    
+    var uri = new Uri(Request.Url.AbsoluteUri);
+    var cleanUrl = uri.GetComponents(UriComponents.AbsoluteUri & ~UriComponents.Port, UriFormat.UriEscaped);
+    TempData["Url"] = cleanUrl;
 }
 
 <h2>Laptops System</h2>

@@ -5,7 +5,9 @@
 
 @{
     ViewBag.Title = "Laptops";
-    TempData["Url"] = Request.Url.AbsoluteUri;
+    var uri = new Uri(Request.Url.AbsoluteUri);
+    var cleanUrl = uri.GetComponents(UriComponents.AbsoluteUri & ~UriComponents.Port, UriFormat.UriEscaped);
+    TempData["Url"] = cleanUrl;
 }
 
 <h2>@ViewBag.Title</h2>
@@ -53,7 +55,7 @@
     <br />
     <div class="form-group">
         <div class="col-md-offset-2 col-md-2">
-            <button type="submit" class="btn btn-success" id="search">Search</button>
+            <button type="submit" class="btn btn-success" name="search" id="search">Search</button>
         </div>
     </div>
 </form>
