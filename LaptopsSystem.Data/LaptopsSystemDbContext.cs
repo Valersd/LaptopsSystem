@@ -13,7 +13,7 @@ namespace LaptopsSystem.Data
     public class LaptopsSystemDbContext : IdentityDbContext<User>
     {
         public LaptopsSystemDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("LaptopsSystem", throwIfV1Schema: false)
         {
             Configuration.LazyLoadingEnabled = false;
             Configuration.ProxyCreationEnabled = false;
