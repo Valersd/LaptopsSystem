@@ -3,7 +3,15 @@
     padding-bottom: 20px;
     -ms-word-wrap: break-word;
     word-wrap: break-word;
+
+    /*Scroll invisible in IE*/
+    /*-ms-overflow-style: none;*/
 }
+
+/*Scroll invisible in Chrome*/
+/*body::-webkit-scrollbar{
+     width: 0 !important;
+}*/
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
@@ -63,6 +71,10 @@ textarea {
     vertical-align:middle !important;
 }
 
+.img-laptop{
+    margin:0 auto;
+}
+
 .img-laptop:hover {
     cursor: pointer;
 }
@@ -106,6 +118,14 @@ body.modal-no-scroll,
 {
     margin-right: 0!important;
 }*/
+
+a.text-danger:hover{
+    color:red!important;
+}
+
+a.text-info:hover{
+    color:aqua!important;
+}
 
 /* enable absolute positioning */
 .inner-addon {

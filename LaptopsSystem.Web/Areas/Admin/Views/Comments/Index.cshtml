@@ -5,6 +5,7 @@
 
 @{
     ViewBag.Title = "Comments";
+    TempData["Url"] = Request.Url.AbsoluteUri;
 }
 
 @if (TempData.ContainsKey("Message"))
@@ -12,9 +13,10 @@
     @Html.Partial("_Message")
 }
 
-<h2>@ViewBag.Title</h2>
+@Html.Partial("_AdministratorCrown")
+<br />
 
-<table class="table table-striped">
+<table id="tblComments" class="table table-striped">
     <tr class="text-center">
         <th>
             Content
@@ -43,8 +45,9 @@
                 @Html.DisplayFor(modelItem => item.Author)
             </td>
             <td class="text-center middle">
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "text-info" }) |
-                <a href="#" role="button" data-id="@item.Id" data-name="@item.Author" class="delete text-danger">Delete</a>
+                <a href="/Admin/Comments/Edit/@item.Id" class="text-info"><img class="edit" src="~/Content/custom_images/maintenance-dark.gif" alt="Maintenance" width="20" /> Edit</a> |
+                @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "text-info" }) |*@
+                <a href="javascript:void(0)" role="button" data-id="@item.Id" data-name="@item.Author" class="delete text-danger"><img src="~/Content/custom_images/delete-red.png" width="20" alt="Delete" /> Delete</a>
             </td>
         </tr>
     }
@@ -59,6 +62,7 @@
     @Scripts.Render("~/bundles/custom")
     <script type="text/javascript">
         $(function () {
+            $('#tblComments tr:nth-of-type(2n+1) img.edit').removeAttr('src').attr('src', '/Content/custom_images/maintenance-light.gif');
             modalOperations.init();
             modalOperations.modalDelete('.delete', 'Are you sure to delete that comment from ', ' ?');
         })

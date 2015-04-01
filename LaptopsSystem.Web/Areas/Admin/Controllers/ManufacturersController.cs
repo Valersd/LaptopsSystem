@@ -13,15 +13,18 @@ using AutoMapper.QueryableExtensions;
 using LaptopsSystem.Data;
 using LaptopsSystem.Models;
 using LaptopsSystem.Web.Areas.Admin.Models;
+using LaptopsSystem.Web.Infrastructure.Cache;
 
 
 namespace LaptopsSystem.Web.Areas.Admin.Controllers
 {
     public class ManufacturersController : AdminController
     {
-        public ManufacturersController(ILaptopsSystemData data)
+        private ICacheService _cacheService;
+        public ManufacturersController(ILaptopsSystemData data, ICacheService cacheService)
             :base(data)
         {
+            _cacheService = cacheService;
         }
 
         // GET: Admin/Manufacturers
@@ -54,10 +57,12 @@ namespace LaptopsSystem.Web.Areas.Admin.Controllers
                 if (ModelState.IsValid)
                 {
                     model.Name = model.Name.ToUpper();
+
                     var manufacturer = Mapper.Map<Manufacturer>(model);
                     Data.Manufacturers.Add(manufacturer);
                     Data.SaveChanges();
-                    HttpContext.Cache.Remove("Manufacturers");
+
+                    _cacheService.Remove("Manufacturers");
                     TempData["Message"] = "Manufacturer successfully added";
                     return RedirectToAction("Index");
                 }
@@ -104,7 +109,8 @@ namespace LaptopsSystem.Web.Areas.Admin.Controllers
                     var edited = Mapper.Map<Manufacturer>(model);
                     Data.Manufacturers.Update(edited);
                     Data.SaveChanges();
-                    HttpContext.Cache.Remove("Manufacturers");
+
+                    _cacheService.Remove("Manufacturers");
                     TempData["Message"] = "Manufacturer successfully updated";
 
                     return RedirectToAction("Index");
@@ -133,7 +139,8 @@ namespace LaptopsSystem.Web.Areas.Admin.Controllers
             {
                 Data.Manufacturers.Delete(id.Value);
                 Data.SaveChanges();
-                HttpContext.Cache.Remove("Manufacturers");
+
+                _cacheService.Remove("Manufacturers");
                 TempData["Message"] = "Manufacturer successfully deleted";
                 
                 return RedirectToAction("Index");

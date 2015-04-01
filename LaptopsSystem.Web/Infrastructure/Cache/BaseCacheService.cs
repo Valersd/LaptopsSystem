@@ -19,5 +19,10 @@ namespace LaptopsSystem.Web.Infrastructure.Cache
             }
             return item;
         }
+
+        protected void RemoveFromCache(string key)
+        {
+            HttpContext.Current.Cache.Remove(key);
+        }
     }
 }

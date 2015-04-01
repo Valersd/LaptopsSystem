@@ -1,9 +1,20 @@
 ﻿
 var modalOperations = {
-    init: function () {
-        if ($("body").height() <= $(window).height()) {
+    init: function (ajaxResultHeight) {
+        var isOpera = !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
+        var isChrome = !!window.chrome && !isOpera;
+        var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
+
+        if (!ajaxResultHeight) {
+            ajaxResultHeight = 0;
+        }
+        if ($("body").height() + ajaxResultHeight <= $(window).height() || !(isChrome || isSafari)) {
             $('body').addClass('modal-no-scroll');
             $('.navbar-fixed-top').addClass('modal-no-scroll');
+        }
+        else {
+            $('body').removeClass('modal-no-scroll');
+            $('.navbar-fixed-top').removeClass('modal-no-scroll');
         }
     },
 
@@ -36,10 +47,14 @@ var modalOperations = {
             throw new Error('Specify element to call modal window')
         }
 
+        $('#myModal').on('shown.bs.modal', function () {
+            $('.close').focus();
+        });
+
         $(modalCallerSelector).click(function () {
             var $that = $(this);
-            var src = $($that).attr('src');
-            var alt = $($that).attr('alt');
+            var src = $that.attr('src');
+            var alt = $that.attr('alt');
             $('.modal-body img').attr('src', src).attr('alt', alt);
             $('#myModalLabel').text(alt);
             $('#myModal').modal('toggle');

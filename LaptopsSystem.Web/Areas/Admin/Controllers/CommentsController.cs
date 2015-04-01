@@ -77,7 +77,8 @@ namespace LaptopsSystem.Web.Areas.Admin.Controllers
                 if (ModelState.IsValid)
                 {
                     var comment = Mapper.Map<Comment>(edited);
-                    Data.Comments.Update(comment, "LaptopId", "AuthorId");
+                    Data.Comments.Update(comment, c => c.LaptopId, c => c.AuthorId);
+                    //Data.Comments.Update(comment, "LaptopId", "AuthorId");
                     bool saveFailed;
                     do
                     {

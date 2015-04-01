@@ -1,7 +1,17 @@
 ﻿@model IEnumerable<LaptopsSystem.Web.Areas.Admin.Models.LaptopAdminIndex>
 
 @{
-    ViewBag.Title = "Laptops List";
+    ViewBag.Title = "Laptops";
+    var ajaxOptions = new AjaxOptions()
+    {
+        HttpMethod = "POST",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "laptops",
+        LoadingElementId = "loadingElement",
+        //LoadingElementDuration = 200,
+        OnSuccess = "OnSuccess",
+    };
+    var manufacturers = ViewBag.Manufacturers as IEnumerable<SelectListItem>;
 }
 
 @if (TempData.ContainsKey("Message"))
@@ -9,78 +19,56 @@
     @Html.Partial("_Message")
 }
 
-<h2>@ViewBag.Title</h2>
+@Html.Partial("_AdministratorCrown")
+
+@using (Ajax.BeginForm("Laptops", "Ajax", new { area = "" }, ajaxOptions, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-group">
+        <label for="manufacturerId" class="control-label col-md-2">Manufacturer</label>
+        <div class="col-md-4">
+            @Html.DropDownList("manufacturerId", manufacturers, "-- ALL --", new{ @class = "form-control", onchange="$(this.form).submit();"})
+        </div>
+        <div id="loadingElement" class="col-md-6" style="display:none;">
+            @*<img src="~/Content/custom_images/spiffygif_46x46.gif" alt="Loading..." />*@
+            <img src="~/Content/custom_images/ajax-loader.gif" alt="Loading..." width="46" />
+        </div>
+    </div>
+}
 
 <p>
     @Html.ActionLink("Create New", "Create", null, new { @class = "text-success h4" })
 </p>
-<table class="table table-striped">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Manufacturer)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Model)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Price)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ImageUrl)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HardDisk)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Ram)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Monitor)
-        </th>
-        <th>Action</th>
-    </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr class="text-center">
-            <td>
-                @Html.DisplayFor(modelItem => item.Manufacturer)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Model)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImageUrl)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HardDisk)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ram)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Monitor)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "text-info" }) |
-                <a href="#" role="button" data-id="@item.Id" data-name="@String.Format("{0} {1}",item.Manufacturer,item.Model)" class="delete text-danger">Delete</a>
-            </td>
-        </tr>
-    }
 
-</table>
+<div id="laptops">
+
+    @Html.Partial("_Laptops", Model)
+
+</div>
 
 @Html.Partial("_DeleteModal", new ViewDataDictionary { { "url", "/Admin/Laptops/Delete" } })
 
 @section scripts{
+    @Scripts.Render("~/bundles/ajax")
     @Scripts.Render("~/bundles/custom")
     <script type="text/javascript">
-        $(function () {
-            modalOperations.init();
+        var Initialize = function (ajaxResultHeight) {
+
+            $('#tblLaptops tr:nth-of-type(2n+1) img.edit').removeAttr('src').attr('src', '/Content/custom_images/maintenance-light.gif');
+
+            modalOperations.init(ajaxResultHeight);
             modalOperations.modalDelete('.delete', 'Are you sure to delete laptop ', ' ?');
+        };
+
+        var OnSuccess = function () {
+            $('#laptops').hide().slideDown(1000, Initialize($('#laptops').height()));
+        };
+
+        $(function () {
+            Initialize();
         });
+        
     </script>
 }

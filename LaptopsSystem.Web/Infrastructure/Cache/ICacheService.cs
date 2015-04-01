@@ -11,5 +11,6 @@ namespace LaptopsSystem.Web.Infrastructure.Cache
         IList<LaptopIndex> Laptops { get; }
         IEnumerable<SelectListItem> Manufacturers { get; }
         IEnumerable<SelectListItem> MonitorSizes { get; }
+        void Remove(string key);
     }
 }

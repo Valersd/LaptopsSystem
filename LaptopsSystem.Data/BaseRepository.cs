@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Linq.Expressions;
 
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
@@ -47,7 +48,7 @@ namespace LaptopsSystem.Data
             }
         }
 
-        public virtual void Update(T entity, params string[] excludProp)
+        public virtual void Update(T entity, params Expression<Func<T, object>>[] excludProp)
         {
             DbEntityEntry entry = this.Context.Entry(entity);
             if (entry.State == EntityState.Detached)
@@ -57,10 +58,25 @@ namespace LaptopsSystem.Data
             entry.State = EntityState.Modified;
             foreach (var prop in excludProp)
             {
-                
-                entry.Property(prop).IsModified = false;
+
+                this.Context.Entry(entity).Property(prop).IsModified = false;
             }
         }
+
+        //public virtual void Update(T entity, params string[] excludProp)
+        //{
+        //    DbEntityEntry entry = this.Context.Entry(entity);
+        //    if (entry.State == EntityState.Detached)
+        //    {
+        //        this.DbSet.Attach(entity);
+        //    }
+        //    entry.State = EntityState.Modified;
+        //    foreach (var prop in excludProp)
+        //    {
+
+        //        entry.Property(prop).IsModified = false;
+        //    }
+        //}
 
         public virtual void Delete(T entity)
         {

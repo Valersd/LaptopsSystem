@@ -59,5 +59,10 @@ namespace LaptopsSystem.Web.Infrastructure.Cache
                 return items.Select(m => new SelectListItem { Text =  m.Size.ToString(), Value = m.Id.ToString() });
             }
         }
+
+        public void Remove(string key)
+        {
+            this.RemoveFromCache(key);
+        }
     }
 }

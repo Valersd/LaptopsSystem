@@ -1,0 +1,69 @@
+﻿@model IEnumerable<LaptopsSystem.Web.Areas.Admin.Models.LaptopAdminIndex>
+
+@if (!Model.Any())
+{
+    <h4 class="text-warning"><em>No results !</em></h4>
+}
+else
+{
+    <table id="tblLaptops" class="table table-striped">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Manufacturer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Model)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HardDisk)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ram)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Monitor)
+            </th>
+            <th>Action</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr class="text-center">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Manufacturer)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Model)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ImageUrl)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HardDisk)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ram)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Monitor)
+                </td>
+                <td>
+                    <a href="/Admin/Laptops/Edit/@item.Id" class="text-info"><img class="edit" src="~/Content/custom_images/maintenance-dark.gif" alt="Maintenance" width="20" /> Edit</a> | 
+                    @*@Html.ActionLink("Edit", "Edit", "Laptops", new { id = item.Id, area = "Admin" }, new { @class = "text-info" }) |*@
+                    <a href="javascript:void(0)" role="button" data-id="@item.Id" data-name="@String.Format("{0} {1}",item.Manufacturer,item.Model)" class="delete text-danger"><img src="~/Content/custom_images/delete-red.png" width="20" alt="Delete" /> Delete</a>
+                </td>
+            </tr>
+        }
+
+    </table>
+}
+

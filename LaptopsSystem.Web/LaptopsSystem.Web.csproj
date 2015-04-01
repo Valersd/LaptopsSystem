@@ -244,6 +244,13 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.slate.css" />
     <Content Include="Content\bootstrap.slate.min.css" />
+    <Content Include="Content\custom_images\crown.gif" />
+    <Content Include="Content\custom_images\ajax-loader.gif" />
+    <Content Include="Content\custom_images\delete-red.png" />
+    <Content Include="Content\custom_images\maintenance-dark.gif" />
+    <Content Include="Content\custom_images\maintenance-light.gif" />
+    <Content Include="Content\custom_images\pound.gif" />
+    <Content Include="Content\custom_images\spiffygif_46x46.gif" />
     <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -257,12 +264,14 @@
     <Content Include="Areas\Admin\Views\Manufacturers\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Message.cshtml" />
     <Content Include="Areas\Admin\Views\Manufacturers\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\DisplayTemplates\_CutLongWords.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\_CutLongWords.cshtml" />
     <Content Include="Areas\Admin\Views\Laptops\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Laptops\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Laptops\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Comments\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Comments\Edit.cshtml" />
+    <Content Include="Views\Shared\_Laptops.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_AdministratorCrown.cshtml" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\Custom\autocomplete-and-slider.js" />
     <Content Include="Scripts\Custom\modal-operations.js" />
@@ -708,6 +717,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Views\Admin\" />
+    <Folder Include="Areas\Admin\Views\Shared\DisplayTemplates\" />
     <Folder Include="Views\Ajax\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>

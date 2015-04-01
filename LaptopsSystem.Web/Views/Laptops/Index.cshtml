@@ -35,11 +35,14 @@
     <div class="form-group-sm">
         <label for="from" class="col-md-2 control-label">From price</label>
         <div class="col-md-2">
-            <input type="number" disabled id="from" name="from" value="@((decimal)ViewBag.From)" class="form-control input-sm" />
+            <input type="number" readonly="readonly" id="from" name="from" value="@((decimal)ViewBag.From)" class="form-control input-sm" />
         </div>
         <label for="to" class="col-md-1 control-label">To price</label>
         <div class="col-md-2">
-            <input type="number" disabled id="to" name="to" value="@((decimal)ViewBag.To)" class="form-control input-sm" />
+            <input type="number" readonly="readonly" id="to" name="to" value="@((decimal)ViewBag.To)" class="form-control input-sm" />
+        </div>
+        <div class="col-md-1">
+            <img src="~/Content/custom_images/pound.gif" alt="Pound" width="30" />
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-5">
@@ -50,7 +53,7 @@
     <br />
     <div class="form-group">
         <div class="col-md-offset-2 col-md-2">
-            <button type="submit" class="btn btn-success" id="search" onclick="$('#from').removeAttr('disabled'); $('#to').removeAttr('disabled');">Search</button>
+            <button type="submit" class="btn btn-success" id="search">Search</button>
         </div>
     </div>
 </form>

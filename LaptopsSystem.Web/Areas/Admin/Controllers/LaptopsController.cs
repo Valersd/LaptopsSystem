@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Net;
 
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -15,7 +16,6 @@ using LaptopsSystem.Models;
 using LaptopsSystem.Web.Areas.Admin.Models;
 using LaptopsSystem.Web.ViewModels;
 using LaptopsSystem.Web.Infrastructure.Cache;
-using System.Data.Entity.Infrastructure;
 
 namespace LaptopsSystem.Web.Areas.Admin.Controllers
 {
@@ -40,6 +40,9 @@ namespace LaptopsSystem.Web.Areas.Admin.Controllers
                 .Project()
                 .To<LaptopAdminIndex>()
                 .ToList();
+
+            ViewBag.Manufacturers = _cacheService.Manufacturers;
+
             return View(laptops);
         }
 
@@ -118,7 +121,8 @@ namespace LaptopsSystem.Web.Areas.Admin.Controllers
                 if (ModelState.IsValid)
                 {
                     var laptop = Mapper.Map<Laptop>(edited);
-                    Data.Laptops.Update(laptop, "ManufacturerId", "MonitorId", "Model");
+                    //Data.Laptops.Update(laptop, "ManufacturerId", "MonitorId", "Model");
+                    Data.Laptops.Update(laptop, l => l.ManufacturerId, l => l.MonitorId, l => l.Model);
                     bool saveFailed;
                     do
                     {
