@@ -3,6 +3,8 @@
 @{
     ViewBag.Title = "Edit " + Model.Manufacturer + " " + Model.Model;
     var monitorSizes = ViewBag.MonitorSizes as IEnumerable<SelectListItem>;
+    //var culture = System.Globalization.CultureInfo.CurrentCulture.Name;
+    //var scriptSrc = String.Format("~/Scripts/globalize/cultures/globalize.culture.{0}.js", culture);
 }
 
 <h2>@ViewBag.Title</h2>
@@ -130,10 +132,18 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/globalize")
+    @*@Scripts.RenderFormat("<script src=\"{0}\"></script>", scriptSrc)*@
     @Scripts.Render("~/bundles/custom")
 
     <script type="text/javascript">
         $(function () {
+            var lang = $('html').prop('lang');
+            var src = "/Scripts/globalize/cultures/globalize.culture." + lang + ".js";
+            var fileref = document.createElement('script')
+            fileref.setAttribute("type", "text/javascript");
+            fileref.setAttribute("src", src);
+            document.body.appendChild(fileref);
+
             $('[data-val=true]').each(function () {
                 var that = $(this);
                 var label = that.parent().parent().children('label').first();

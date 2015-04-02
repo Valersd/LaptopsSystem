@@ -20,8 +20,8 @@ namespace LaptopsSystem.Web
 
             bundles.Add(new ScriptBundle("~/bundles/globalize").Include(
                         "~/Scripts/globalize/globalize.js",
-                        "~/Scripts/globalize/globalize-validation.js")
-                        .IncludeDirectory("~/Scripts/globalize/cultures",string.Format("*.{0}.js",System.Globalization.CultureInfo.CurrentUICulture.Name)));
+                        "~/Scripts/globalize/globalize-validation.js"));
+                        //.IncludeDirectory("~/Scripts/globalize/cultures",string.Format("*.{0}.js",System.Globalization.CultureInfo.CurrentCulture.Name)));
 
             bundles.Add(new ScriptBundle("~/bundles/custom")
                 .Include("~/Scripts/jquery-ui-1.11.3.custom/jquery-ui.js")
