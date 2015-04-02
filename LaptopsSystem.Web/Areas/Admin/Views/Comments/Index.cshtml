@@ -37,7 +37,7 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td style="width:65%">
+            <td style="width:60%">
                 @Html.DisplayFor(modelItem => item.Content)
             </td>
             <td class="middle">
@@ -46,7 +46,7 @@
             <td class="middle">
                 @Html.DisplayFor(modelItem => item.Author)
             </td>
-            <td class="text-center middle">
+            <td class="text-center middle" style="width:13%">
                 <a href="/Admin/Comments/Edit/@item.Id" class="text-info"><img class="edit" src="~/Content/custom_images/maintenance-dark.gif" alt="Maintenance" width="20" /> Edit</a> |
                 @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "text-info" }) |*@
                 <a href="javascript:void(0)" role="button" data-id="@item.Id" data-name="@item.Author" class="delete text-danger"><img src="~/Content/custom_images/delete-red.png" width="20" alt="Delete" /> Delete</a>
