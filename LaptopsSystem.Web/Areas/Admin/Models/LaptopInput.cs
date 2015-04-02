@@ -51,7 +51,7 @@ namespace LaptopsSystem.Web.Areas.Admin.Models
         [DataType(DataType.MultilineText)]
         public string AdditionalParts { get; set; }
 
-        [StringLength(1000, MinimumLength = 3, ErrorMessage = "{0} should be between {2} and {1} symbols")]
+        [StringLength(3000, MinimumLength = 3, ErrorMessage = "{0} should be between {2} and {1} symbols")]
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
     }

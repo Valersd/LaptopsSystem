@@ -45,7 +45,7 @@ namespace LaptopsSystem.Models
         [StringLength(200,MinimumLength=3)]
         public string AdditionalParts { get; set; }
 
-        [StringLength(1000,MinimumLength=3)]
+        [StringLength(3000,MinimumLength=3)]
         public string Description { get; set; }
 
         public int ManufacturerId { get; set; }

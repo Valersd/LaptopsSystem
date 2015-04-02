@@ -10,7 +10,7 @@ namespace LaptopsSystem.Models
         public int Id { get; set; }
 
         [Required]
-        [StringLength(200, MinimumLength=3)]
+        [StringLength(1000, MinimumLength=3)]
         public string Content { get; set; }
 
         public int LaptopId { get; set; }
