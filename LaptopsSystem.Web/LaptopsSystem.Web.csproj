@@ -229,6 +229,7 @@
     <Compile Include="Infrastructure\Cache\BaseCacheService.cs" />
     <Compile Include="Infrastructure\Cache\CacheService.cs" />
     <Compile Include="Infrastructure\Cache\ICacheService.cs" />
+    <Compile Include="Infrastructure\Helpers\HelperMethods.cs" />
     <Compile Include="Infrastructure\ModelBinders\DecimalAndDoubleModelBinder.cs" />
     <Compile Include="Models\CommentInput.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
@@ -264,6 +265,8 @@
     <Content Include="Areas\Admin\Views\Manufacturers\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Message.cshtml" />
     <Content Include="Areas\Admin\Views\Manufacturers\Edit.cshtml" />
+    <Content Include="Scripts\Custom\set-timezone-cookie.js" />
+    <Content Include="Scripts\jquery.cookie.js" />
     <Content Include="Views\Shared\DisplayTemplates\_CutLongWords.cshtml" />
     <Content Include="Areas\Admin\Views\Laptops\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Laptops\Create.cshtml" />
@@ -713,6 +716,7 @@
     <Content Include="Views\Laptops\Index.cshtml" />
     <Content Include="Views\Shared\_ImageModal.cshtml" />
     <Content Include="Views\Shared\_DeleteModal.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -25,7 +25,7 @@ namespace LaptopsSystem.Common
             return result.ToString();
         }
 
-        public static int GetRandomNumber(int min = 0, int max = 100)
+        public static int GetRandomInteger(int min = 0, int max = 100)
         {
             return _rand.Next(min, max + 1);
         }
@@ -39,6 +39,13 @@ namespace LaptopsSystem.Common
                 result.Append(LettersWithSpaces[_rand.Next(LettersWithSpaces.Length - 1)]);
             }
             return result.ToString().Trim();
+        }
+
+        public static DateTime GetRandomDateTime(DateTime start, int maxHoursAfterStart)
+        {
+            double hoursAfterStart = (double)GetRandomInteger(0, maxHoursAfterStart - 1) + (double)GetRandomInteger(1, 100) * 0.01;
+            DateTime result = start.AddHours(hoursAfterStart);
+            return result;
         }
     }
 }

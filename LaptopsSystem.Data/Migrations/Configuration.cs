@@ -16,12 +16,15 @@ namespace LaptopsSystem.Data.Migrations
 
     using LaptopsSystem.Common;
     using LaptopsSystem.Models;
+    using System.Text;
     public sealed class Configuration : DbMigrationsConfiguration<LaptopsSystemDbContext>
     {
+        private DateTime _randomDateTimeForSeed;
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
             AutomaticMigrationDataLossAllowed = true;
+            _randomDateTimeForSeed = DateTime.UtcNow.AddDays(-7);
         }
 
         protected override void Seed(LaptopsSystemDbContext context)
@@ -46,10 +49,10 @@ namespace LaptopsSystem.Data.Migrations
             {
                 var currentUserId = users[i].Id;
                 HashSet<int> laptopIds = new HashSet<int>();
-                int votesCount = RandomGenerator.GetRandomNumber(20, 40);
+                int votesCount = RandomGenerator.GetRandomInteger(20, 40);
                 while (laptopIds.Count < votesCount)
                 {
-                    laptopIds.Add(RandomGenerator.GetRandomNumber(0, laptops.Count - 1));
+                    laptopIds.Add(RandomGenerator.GetRandomInteger(0, laptops.Count - 1));
                 }
                 foreach (var laptopId in laptopIds)
                 {
@@ -125,39 +128,51 @@ namespace LaptopsSystem.Data.Migrations
                 context.Manufacturers.Add(manufacturer);
                 context.SaveChanges();
 
-                int laptopsCount = RandomGenerator.GetRandomNumber(15, 25);
+                int laptopsCount = RandomGenerator.GetRandomInteger(15, 25);
                 for (int j = 0; j < laptopsCount; j++)
                 {
+                    var paragraphCount = RandomGenerator.GetRandomInteger(2, 3);
+                    string description = String.Empty;
+                    for (int p = 0; p < paragraphCount; p++)
+                    {
+                        string paragraph = String.Join(" ", Lorem.Paragraphs(RandomGenerator.GetRandomInteger(2, 4)));
+                        description += paragraph + Environment.NewLine;
+                    }
+                    description += String.Join(" ", Lorem.Paragraphs(RandomGenerator.GetRandomInteger(1, 3)));
+
                     Laptop laptop = new Laptop
                     {
                         Model = RandomGenerator.GetRandomString(3, 6).ToUpper(),
-                        MonitorId = RandomGenerator.GetRandomNumber(1, 8),
+                        MonitorId = RandomGenerator.GetRandomInteger(1, 8),
                         ManufacturerId = manufacturer.Id,
-                        HardDisk = hardDiskSizes[RandomGenerator.GetRandomNumber(0, hardDiskSizes.Length - 1)],
-                        Ram = ramSizes[RandomGenerator.GetRandomNumber(0, ramSizes.Length - 1)],
-                        Price = (decimal)RandomGenerator.GetRandomNumber(800, 6000) + 0.01m * (decimal)RandomGenerator.GetRandomNumber(0,99),
-                        ImageUrl = imgUrls[RandomGenerator.GetRandomNumber(0, imgUrls.Length - 1)],
-                        Weight = RandomGenerator.GetRandomNumber() % 2 == 0 ? (double)RandomGenerator.GetRandomNumber(2, 4) + 0.1 * (double)RandomGenerator.GetRandomNumber(0, 9) : default(double?),
-                        AdditionalParts = RandomGenerator.GetRandomNumber() % 2 == 0 ? Lorem.Sentence(3) : null,
-                        Description = RandomGenerator.GetRandomNumber() % 2 == 0 ? String.Join(Environment.NewLine,Lorem.Paragraphs(RandomGenerator.GetRandomNumber(3,7))) : null,
+                        HardDisk = hardDiskSizes[RandomGenerator.GetRandomInteger(0, hardDiskSizes.Length - 1)],
+                        Ram = ramSizes[RandomGenerator.GetRandomInteger(0, ramSizes.Length - 1)],
+                        Price = (decimal)RandomGenerator.GetRandomInteger(800, 6000) + 0.01m * (decimal)RandomGenerator.GetRandomInteger(0,99),
+                        ImageUrl = imgUrls[RandomGenerator.GetRandomInteger(0, imgUrls.Length - 1)],
+                        Weight = RandomGenerator.GetRandomInteger() % 2 == 0 ? (double)RandomGenerator.GetRandomInteger(2, 4) + 0.1 * (double)RandomGenerator.GetRandomInteger(0, 9) : default(double?),
+                        AdditionalParts = RandomGenerator.GetRandomInteger() % 2 == 0 ? Lorem.Sentence(3) : null,
+                        Description = RandomGenerator.GetRandomInteger() % 2 == 0 ? description : null,
                     };
                     context.Laptops.Add(laptop);
                     context.SaveChanges();
 
-                    int commentsCount = RandomGenerator.GetRandomNumber(4, 15);
+                    int commentsCount = RandomGenerator.GetRandomInteger(4, 15);
                     for (int k = 0; k < commentsCount; k++)
                     {
+                        DateTime dateTime = RandomGenerator.GetRandomDateTime(_randomDateTimeForSeed, 8);
+                        _randomDateTimeForSeed = dateTime;
                         Comment comment = new Comment
                         {
                             //Content = RandomGenerator.GetRandomText(20,200),
                             Content = Lorem.Paragraph(2),
-                            Author = users[RandomGenerator.GetRandomNumber(0,users.Count - 1)],
+                            CreatedOn = dateTime,
+                            Author = users[RandomGenerator.GetRandomInteger(0,users.Count - 1)],
                             LaptopId = laptop.Id
                         };
                         context.Comments.Add(comment);
                         context.SaveChanges();
                     }
-
+                    _randomDateTimeForSeed = DateTime.UtcNow.AddDays(-7);
                 }
                 context.SaveChanges();
             }
@@ -203,7 +218,7 @@ namespace LaptopsSystem.Data.Migrations
                     Email = Faker.Internet.Email()
                 };
                 userManager.Create(user, GlobalConstants.TestPassword);
-                userManager.AddToRole(user.Id, RandomGenerator.GetRandomNumber() > 66 ? GlobalConstants.AdminRole : GlobalConstants.UserRole);
+                userManager.AddToRole(user.Id, RandomGenerator.GetRandomInteger() > 66 ? GlobalConstants.AdminRole : GlobalConstants.UserRole);
             }
             context.SaveChanges();
         }

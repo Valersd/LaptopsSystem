@@ -34,7 +34,7 @@ namespace LaptopsSystem.Web.Areas.Admin.Controllers
                 .All()
                 .Include(c => c.Laptop)
                 .Include(c => c.Author)
-                .OrderByDescending(c => c.Id)
+                .OrderByDescending(c => c.CreatedOn)
                 .Project()
                 .To<CommentIndex>()
                 .ToPagedList(page ?? 1, 10);
@@ -77,7 +77,7 @@ namespace LaptopsSystem.Web.Areas.Admin.Controllers
                 if (ModelState.IsValid)
                 {
                     var comment = Mapper.Map<Comment>(edited);
-                    Data.Comments.Update(comment, c => c.LaptopId, c => c.AuthorId);
+                    Data.Comments.Update(comment, c => c.LaptopId, c => c.AuthorId, c => c.CreatedOn);
                     //Data.Comments.Update(comment, "LaptopId", "AuthorId");
                     bool saveFailed;
                     do

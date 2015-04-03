@@ -30,6 +30,9 @@
             Author
         </th>
         <th>
+            Posted
+        </th>
+        <th>
             Action
         </th>
     </tr>
@@ -37,7 +40,7 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td style="width:60%">
+            <td style="width:50%">
                 @Html.DisplayFor(modelItem => item.Content)
             </td>
             <td class="middle">
@@ -45,6 +48,9 @@
             </td>
             <td class="middle">
                 @Html.DisplayFor(modelItem => item.Author)
+            </td>
+            <td class="middle" style="width:15%">
+                @Html.DisplayFor(modelItem => item.CreatedOn)
             </td>
             <td class="text-center middle" style="width:13%">
                 <a href="/Admin/Comments/Edit/@item.Id" class="text-info"><img class="edit" src="~/Content/custom_images/maintenance-dark.gif" alt="Maintenance" width="20" /> Edit</a> |

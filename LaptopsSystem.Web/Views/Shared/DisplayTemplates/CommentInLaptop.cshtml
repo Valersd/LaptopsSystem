@@ -1,8 +1,9 @@
 ﻿@model CommentInLaptop
 <li>
     <p>
-        <em class="text-muted small">Comment by </em><strong class="underline">@Model.Author</strong>
+        <em class="text-muted small">Comment by</em>&nbsp;<strong class="underline">@Model.Author</strong>&nbsp;
+        <em class="text-muted small">posted</em>&nbsp;<strong>@Html.DisplayFor(m => m.CreatedOn)</strong>
         <br />
-        @Model.Content
+        <span style="white-space:pre-line">@Model.Content</span>
     </p>
 </li>

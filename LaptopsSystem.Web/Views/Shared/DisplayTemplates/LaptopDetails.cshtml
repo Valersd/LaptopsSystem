@@ -3,7 +3,7 @@
 @{
     string buttonStyle = Model.HasVoted ? "btn-default disabled" : "btn-success";
     string glyph = Model.HasVoted ? "glyphicon glyphicon-remove-sign" : "glyphicon glyphicon-thumbs-up";
-    var comments = Model.Comments.OrderByDescending(c => c.Id);
+    var comments = Model.Comments.OrderByDescending(c => c.CreatedOn);
 }
 
 <div class="row">
@@ -93,19 +93,11 @@
             @Html.DisplayNameFor(model => model.Description)
         </dt>
 
-        <dd class="word-wrap">
-            @Html.DisplayFor(model => model.Description)
+        <dd class="word-wrap text-justify">
+            <p style="white-space:pre-line">@Html.DisplayFor(model => model.Description)</p>
         </dd>
     </dl>
 }
-
-<ul id="comments">
-    @foreach (var comment in comments)
-    {
-        @Html.DisplayFor(c=>comment)
-    }
-</ul>
-<br />
 
 @if (User.Identity.IsAuthenticated)
 {
@@ -115,13 +107,13 @@
         InsertionMode = InsertionMode.InsertBefore,
         UpdateTargetId = "comments",
         OnSuccess = "$('#Content').val('');"
-    }, new { @class="form-horizontal"}))
+    }, new { @class = "form-horizontal" }))
     {
-        
+
         @Html.AntiForgeryToken()
 
         @Html.Partial("_CommentInput", new LaptopsSystem.Web.Models.CommentInput() { LaptopId = Model.Id })
-    
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" name="commentSubmit" value="Send" class="btn btn-success" />
@@ -129,6 +121,14 @@
         </div>
     }
 }
+
+<ul id="comments">
+    @foreach (var comment in comments)
+    {
+        @Html.DisplayFor(c=>comment)
+    }
+</ul>
+<br />
 
 @Html.Partial("_ImageModal")
 

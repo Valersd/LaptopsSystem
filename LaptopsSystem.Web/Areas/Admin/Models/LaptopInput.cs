@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace LaptopsSystem.Web.Areas.Admin.Models
 {
@@ -53,6 +54,7 @@ namespace LaptopsSystem.Web.Areas.Admin.Models
 
         [StringLength(3000, MinimumLength = 3, ErrorMessage = "{0} should be between {2} and {1} symbols")]
         [DataType(DataType.MultilineText)]
+        [AllowHtml]
         public string Description { get; set; }
     }
 }
