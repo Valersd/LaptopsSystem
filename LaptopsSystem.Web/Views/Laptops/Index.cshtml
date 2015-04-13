@@ -18,7 +18,7 @@
     <div class="form-group">
         <label for="model" class="col-md-2 control-label">By name</label>
         <div class="col-md-10">
-            <input type="text" name="model" id="model" value="" class="form-control" autofocus="autofocus" placeholder="Manufacturer or model" />
+            <input type="text" name="model" id="model" value="" class="form-control" placeholder="Manufacturer or model" />
             <span class="text-primary h6"><em>Search in manufacturer or model name and redirect to details page</em></span>
         </div>
     </div>
@@ -114,17 +114,17 @@ else
     @Scripts.Render("~/bundles/custom")
 <script type="text/javascript">
     $(function () {
-        function getParameterByName(name) {
-            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-                results = regex.exec(location.search);
-            return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-        };
+        //function getParameterByName(name) {
+        //    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        //    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        //        results = regex.exec(location.search);
+        //    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        //};
 
-        if (getParameterByName('page')) {
-            $('#model').removeAttr('autofocus');
-            //$('#search').attr('autofocus', 'autofocus');
-        }
+        //if (getParameterByName('page')) {
+        //    $('#model').removeAttr('autofocus');
+        //    $('#search').attr('autofocus', 'autofocus');
+        //}
 
         modalOperations.init();
         modalOperations.modalShowImage('.img-laptop');

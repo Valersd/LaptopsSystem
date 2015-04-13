@@ -45,6 +45,12 @@
     <Reference Include="AutoMapper.Net4">
       <HintPath>..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
     </Reference>
+    <Reference Include="Elmah">
+      <HintPath>..\packages\elmah.corelibrary.1.2.1\lib\Elmah.dll</HintPath>
+    </Reference>
+    <Reference Include="Elmah.Mvc">
+      <HintPath>..\packages\Elmah.MVC.2.1.1\lib\net40\Elmah.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
@@ -206,6 +212,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\CommentsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ElmahController.cs" />
     <Compile Include="Areas\Admin\Controllers\LaptopsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ManufacturersController.cs" />
     <Compile Include="Areas\Admin\Models\CommentEdit.cs" />
@@ -265,6 +272,7 @@
     <Content Include="Areas\Admin\Views\Manufacturers\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Message.cshtml" />
     <Content Include="Areas\Admin\Views\Manufacturers\Edit.cshtml" />
+    <Content Include="Scripts\Custom\link-color-change.js" />
     <Content Include="Scripts\Custom\set-timezone-cookie.js" />
     <Content Include="Scripts\jquery.cookie.js" />
     <Content Include="Views\Shared\DisplayTemplates\_CutLongWords.cshtml" />
@@ -721,6 +729,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Views\Admin\" />
+    <Folder Include="Areas\Admin\Views\Elmah\" />
     <Folder Include="Areas\Admin\Views\Shared\DisplayTemplates\" />
     <Folder Include="Views\Ajax\" />
     <Folder Include="Views\Base\" />

@@ -12,7 +12,8 @@
 @Html.Partial("_AdministratorCrown")
 
 <p class="h4">
-    @Html.ActionLink("Create New", "Create", null, new { @class="text-success"})
+    @*@Html.ActionLink("Create New", "Create", null, new { @class="text-success"})*@
+    <a href="/Admin/Manufacturers/Create" class="text-success"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Create New</a>
 </p>
 <div class="row">
     <div class="col-md-6">
@@ -57,8 +58,9 @@
     <script type="text/javascript">
         $(function () {
             $('#tblManufacturers tr:nth-of-type(2n+1) img.edit').removeAttr('src').attr('src', '/Content/custom_images/maintenance-light.gif');
+            LinkColorChange();
             modalOperations.init();
-            modalOperations.modalDelete('.delete', 'Are you sure to delete manufacturer ', ' with all its models ?');
+            modalOperations.modalDelete('.delete', 'Are you sure to delete manufacturer ', ' with all its own models ?');
         });
 
     </script>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web;
+using System.Web.Mvc;
 
 namespace LaptopsSystem.Web.Infrastructure.Helpers
 {
@@ -21,5 +22,6 @@ namespace LaptopsSystem.Web.Infrastructure.Helpers
             // if there is no offset in session return the datetime in server timezone
             return dt.ToLocalTime();
         }
+
     }
 }

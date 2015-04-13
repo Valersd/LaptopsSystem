@@ -38,6 +38,10 @@ var modalOperations = {
             $('#question').text(text);
 
             $('#myModalDelete').modal('toggle');
+
+            $('#myModalDelete').on('hidden.bs.modal', function () {
+                $('a.text-danger').css('color', '#ee5f5b');
+            });
         });
     },
 

@@ -1,4 +1,5 @@
-﻿@model LaptopsSystem.Web.Areas.Admin.Models.LaptopEdit
+﻿@using LaptopsSystem.Web.Infrastructure.Helpers
+@model LaptopsSystem.Web.Areas.Admin.Models.LaptopEdit
 
 @{
     ViewBag.Title = "Edit " + Model.Manufacturer + " " + Model.Model;
@@ -124,6 +125,7 @@
         </div>
     </div>
 }
+
 
 <div>
     <a href="/Admin/Laptops"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Go Back</a>

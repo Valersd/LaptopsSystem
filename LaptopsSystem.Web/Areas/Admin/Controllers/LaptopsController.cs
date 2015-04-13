@@ -130,9 +130,9 @@ namespace LaptopsSystem.Web.Areas.Admin.Controllers
                         try
                         {
                             Data.SaveChanges();
-                            
+
                         }
-                        catch (DbUpdateConcurrencyException dbex )
+                        catch (DbUpdateConcurrencyException dbex)
                         {
                             saveFailed = true;
                             dbex.Entries.Single().Reload();

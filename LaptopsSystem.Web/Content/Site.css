@@ -35,6 +35,11 @@ textarea {
 
 /*#region Custom Rules */
 
+.footer-text{
+    color:aqua;
+    font-family:Rockwell, Book Antiqua;
+}
+
 .word-wrap {
     -ms-word-wrap: break-word;
     word-wrap: break-word;
@@ -118,6 +123,10 @@ body.modal-no-scroll,
 {
     margin-right: 0!important;
 }*/
+
+a.text-success:hover{
+    color:forestgreen!important;
+}
 
 a.text-danger:hover{
     color:red!important;

@@ -9,11 +9,12 @@
         UpdateTargetId = "laptops",
         LoadingElementId = "loadingElement",
         //LoadingElementDuration = 200,
+        OnBegin = "OnBegin",
         OnSuccess = "OnSuccess",
     };
     var manufacturers = ViewBag.Manufacturers as IEnumerable<SelectListItem>;
-}
 
+}
 @if (TempData.ContainsKey("Message"))
 {
     @Html.Partial("_Message")
@@ -21,7 +22,37 @@
 
 @Html.Partial("_AdministratorCrown")
 
-@using (Ajax.BeginForm("Laptops", "Ajax", new { area = "" }, ajaxOptions, new { @class = "form-horizontal" }))
+<div class="row">
+    <div class="col-md-6">
+        @using (Ajax.BeginForm("Laptops", "Ajax", new { area = "" }, ajaxOptions, new { @class = "form-horizontal" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                <label for="manufacturerId" class="control-label col-md-4">Manufacturer</label>
+                <div class="col-md-7">
+                    @Html.DropDownList("manufacturerId", manufacturers, "-- ALL --", new { @class = "form-control", onchange = "$(this.form).submit();" })
+                </div>
+                <div id="loadingElement" class="col-md-1" style="display:none;">
+                    <img src="~/Content/custom_images/ajax-loader.gif" alt="Loading..." width="46" />
+                </div>
+            </div>
+        }
+    </div>
+    <div class="col-md-6">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label for="model" class="col-md-3 control-label">By name</label>
+                <div class="col-md-9">
+                    <input type="text" name="model" id="model" value="" class="form-control" placeholder="Manufacturer or model" />
+                    <span class="text-primary h6"><em>Search in manufacturer or model name and redirect to edit page</em></span>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@*@using (Ajax.BeginForm("Laptops", "Ajax", new { area = "" }, ajaxOptions, new { @class = "form-horizontal" }))
 {
     @Html.AntiForgeryToken()
     
@@ -31,14 +62,14 @@
             @Html.DropDownList("manufacturerId", manufacturers, "-- ALL --", new{ @class = "form-control", onchange="$(this.form).submit();"})
         </div>
         <div id="loadingElement" class="col-md-6" style="display:none;">
-            @*<img src="~/Content/custom_images/spiffygif_46x46.gif" alt="Loading..." />*@
             <img src="~/Content/custom_images/ajax-loader.gif" alt="Loading..." width="46" />
         </div>
     </div>
-}
+}*@
 
-<p>
-    @Html.ActionLink("Create New", "Create", null, new { @class = "text-success h4" })
+<p class="h4">
+    @*@Html.ActionLink("Create New", "Create", null, new { @class = "text-success h4" })*@
+    <a href="/Admin/Laptops/Create" class="text-success"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Create New</a>
 </p>
 
 
@@ -62,12 +93,27 @@
             modalOperations.modalDelete('.delete', 'Are you sure to delete laptop ', ' ?');
         };
 
+        var OnBegin = function () {
+            $('#laptops').slideUp(400);
+        }
+
         var OnSuccess = function () {
             $('#laptops').hide().slideDown(1000, Initialize($('#laptops').height()));
         };
 
         $(function () {
             Initialize();
+
+            LinkColorChange();
+
+            $('#model').val('').autocomplete({
+                minlength: 1,
+                source: "/ajax/search",
+                select: function (event, ui) {
+                    var model = ui.item.id;
+                    window.location.replace('/Admin/Laptops/Edit/' + model);
+                }
+            });
         });
         
     </script>
