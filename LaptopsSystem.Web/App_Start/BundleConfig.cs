@@ -46,7 +46,7 @@ namespace LaptopsSystem.Web
                         "~/Content/jquery-ui.theme.css",
                         "~/Content/Site.css"));
 
-
+            BundleTable.EnableOptimizations = true;
         }
     }
 }

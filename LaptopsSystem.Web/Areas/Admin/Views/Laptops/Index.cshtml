@@ -89,6 +89,7 @@
 
             $('#tblLaptops tr:nth-of-type(2n+1) img.edit').removeAttr('src').attr('src', '/Content/custom_images/maintenance-light.gif');
 
+            LinkColorChange();
             modalOperations.init(ajaxResultHeight);
             modalOperations.modalDelete('.delete', 'Are you sure to delete laptop ', ' ?');
         };
@@ -103,8 +104,6 @@
 
         $(function () {
             Initialize();
-
-            LinkColorChange();
 
             $('#model').val('').autocomplete({
                 minlength: 1,
